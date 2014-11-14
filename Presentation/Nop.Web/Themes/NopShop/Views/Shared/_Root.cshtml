@@ -1,0 +1,60 @@
+﻿@*@Html.Action("BsMenu", "BsMenu", new {area = ""})*@
+@{
+    Layout = "~/Views/Shared/_Root.Head.cshtml";
+
+}
+@Html.Widget("body_start_html_tag_after")
+@*@Html.Partial("_Notifications")*@
+<div>
+    @Html.Action("JavaScriptDisabledWarning", "Common")
+    <div>
+        <script type="text/javascript">
+            AjaxCart.init(false, '.cart-qty', '.wishlist-qty', '#flyout-cart');
+        </script>
+
+        @*ajax loading window*@
+        <div class="ajax-loading-block-window" style="display: block">
+            <div class="loading-image">
+            </div>
+        </div>
+
+        <div>
+            <header id="header">
+                <!--header-->
+                <div class="header_top">
+                    @Html.Partial("TopHeader")<!--/header_top-->
+                    <!--header_top-->
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="contactinfo">
+                                    <ul class="nav nav-pills">
+                                        <li><a href="#"><i class="fa fa-envelope"></i> shop@springdox.com</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="pull-right">
+                                    <ul class="nav navbar-nav">
+                                        @Html.Action("HeaderLinks", "Common")
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">                    
+                    @Html.Partial("Header")<!--/header-middle-->
+                </div>
+            </header>
+            @Html.Widget("content_before")
+            <div class="container">
+                @RenderBody()
+            </div>
+        </div>
+        @Html.Widget("content_after")
+        @Html.Action("EuCookieLaw", "Common")
+    </div>
+    @Html.Action("Footer", "Common")
+</div>
+@Html.Widget("body_end_html_tag_before")

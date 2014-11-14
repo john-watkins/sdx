@@ -1,0 +1,38 @@
+﻿<div class="header-middle"><!--header-middle-->
+    <div>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="logo pull-left">
+                    <a class="logo" href="@Url.RouteUrl("HomePage")">
+                        <img src="/content/images/doxshop.png" height="60" width="200"/>
+                    </a>
+                </div>
+                <div class="btn-group pull-right">                                        
+                    @Html.Action("LanguageSelector", "Common")                    
+                    @Html.Action("TaxTypeSelector", "Common")                                     
+                </div>
+            </div>
+            <div class="col-sm-7">                
+                @Html.Action("TopMenu", "Catalog")<!--/header-bottom-->
+            </div>
+            <div class="col-sm-2">
+                @Html.Action("SearchBox", "Catalog")
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            @Html.Partial("_Notifications")
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+

@@ -1,0 +1,35 @@
+﻿@using Nop.Core;
+@using Nop.Core.Infrastructure;
+@using Nop.Web.Framework.UI
+@{
+
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|PT+Sans+Narrow|Source+Sans+Pro:200,300,400,600,700,900&amp;subset=all" rel="stylesheet" type="text/css"> 
+  <!-- Fonts END -->
+    
+    Html.AppendCssFileParts("~/Themes/NopShop/Content/css/main.css");
+    Html.AppendCssFileParts("~/Themes/NopShop/Content/css/custom.css");
+    Html.AppendCssFileParts("~/Themes/NopShop/Content/css/price-range.css");
+  <!-- Global styles START -->            
+    Html.AppendCssFileParts("~/Themes/NopShop/Content/metronic/assets/global/plugins/font-awesome/css/font-awesome.min.css");
+    Html.AppendCssFileParts("~/Themes/NopShop/Content/metronic/assets/global/plugins/bootstrap/css/bootstrap.min.css");
+  <!-- Global styles END --> 
+   
+  <!-- Page level plugin styles START -->
+    Html.AppendCssFileParts("~/Themes/NopShop/Content/metronic/assets/global/plugins/uniform/css/uniform.default.css");
+    Html.AppendCssFileParts("~/Content/jquery-ui-themes/smoothness/jquery-ui-1.10.3.custom.min.css");
+    Html.AppendCssFileParts("~/Themes/NopShop/Content/metronic/assets/global/plugins/rateit/src/rateit.css");
+    Html.AppendCssFileParts("~/Themes/NopShop/Content/metronic/assets/global/plugins/fancybox/source/jquery.fancybox.css");            
+    
+  <!-- Page level plugin styles END -->
+    Html.AppendCssFileParts("~/Themes/NopShop/Content/metronic/assets/frontend/layout/css/themes/blue.css");
+    Html.AppendCssFileParts("~/Themes/NopShop/Content/metronic/assets/frontend/layout/css/custom.css");
+    Html.AppendCssFileParts("~/Themes/NopShop/Content/metronic/assets/global/css/components.css");
+    Html.AppendCssFileParts("~/Themes/NopShop/Content/metronic/assets/frontend/layout/css/style.css");
+    Html.AppendCssFileParts("~/Themes/NopShop/Content/metronic/assets/frontend/layout/css/style-responsive.css");    
+}
+
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">   
+<script type="text/javascript">
+    var __rootMetronicUrl = '@Url.Content("~/Themes/NopShop/Content/metronic")';
+</script>
