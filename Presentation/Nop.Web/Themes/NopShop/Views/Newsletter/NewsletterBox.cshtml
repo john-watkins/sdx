@@ -9,7 +9,7 @@
         @Html.TextBoxFor(x => x.NewsletterEmail, new { id = "newsletter-email", @class = "",  placeholder="Enter email" })
         @Html.ValidationMessageFor(x => x.NewsletterEmail)
         
-        <button id="newsletter-subscribe-button" type="submit" class="btn btn-default newsletter-subscribe-button"><i class="fa fa-arrow-circle-o-right"></i></button>
+        <button id="newsletter-subscribe-button" type="submit" class="btn btn-primary newsletter-subscribe-button"><i class="fa fa-arrow-circle-o-right"></i></button>
         <span id="subscribe-loading-progress" style="display: none;" class="please-wait">@T("Common.Wait...")</span>
         
         <p>Get the most recent updates from <br />our site and be updated your self...</p>

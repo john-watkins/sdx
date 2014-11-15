@@ -4,7 +4,7 @@
             <div class="col-sm-3">
                 <div class="logo pull-left">
                     <a class="logo" href="@Url.RouteUrl("HomePage")">
-                        <img src="/content/images/doxshop.png" height="60" width="200"/>
+                        <img src="/content/images/doxshop.png"/>
                     </a>
                 </div>
                 <div class="btn-group pull-right">                                        
@@ -15,7 +15,7 @@
             <div class="col-sm-7">                
                 @Html.Action("TopMenu", "Catalog")<!--/header-bottom-->
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-2 no-pad-right">
                 @Html.Action("SearchBox", "Catalog")
             </div>
         </div>

@@ -43,13 +43,15 @@
                         </div>
                     </div>
                 </div>
-                <div class="container">                    
-                    @Html.Partial("Header")<!--/header-middle-->
+                <div class="header-under-top">
+                    <div class="container">
+                        @Html.Partial("Header")<!--/header-middle-->
+                    </div>
                 </div>
             </header>
             @Html.Widget("content_before")
-            <div class="container">
-                @RenderBody()
+            <div class="page-content">
+                @RenderBody()                
             </div>
         </div>
         @Html.Widget("content_after")

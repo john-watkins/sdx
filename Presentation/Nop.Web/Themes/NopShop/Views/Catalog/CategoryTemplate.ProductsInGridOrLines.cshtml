@@ -22,11 +22,9 @@
 @*category breadcrumb*@
 @if (Model.DisplayCategoryBreadcrumb)
 {
-    <div class="custom-page-box-border-less-div">
-    
-        <div class="breadcrumbs">
-            <ol class="breadcrumb">
-            
+    <div>    
+        <div>
+            <ul class="breadcrumb">            
                 <li><a href="@Url.RouteUrl("HomePage")" title="@T("Categories.Breadcrumb.Top")">@T("Categories.Breadcrumb.Top")</a></li>
                 @foreach (var cat in Model.CategoryBreadcrumb)
                 {
@@ -43,19 +41,15 @@
             
                 }
             
-            </ol>
+            </ul>
         </div>
     </div>
-
-
-
 
     @Html.Widget("categorydetails_after_breadcrumb")
 }
 <div class="features_items"><!--features_items-->
-    <h2 class="title text-center">@Model.Name</h2>
-    <div class="custom-page-box-border-less-div">
-        @Html.Widget("categorydetails_top")
+    <div>
+        @Html.Widget("categorydetails_top")        
         @*description*@
         @if (!String.IsNullOrWhiteSpace(Model.Description))
         {
@@ -89,116 +83,63 @@
                 }
             </div>
 
-
- 
-                
-        }
-        
-                
-                
-        <div class="row">
+        }   
+        <div class="row list-view-sorting clearfix">
             <div class="col-md-12">
-                                      
-            
-                <div class="product-selectors clearfix">
-                   
-
-                            
+                <div>
+                    <div class="pull-left">
+                        <h1>@Model.Name</h1>
+                    </div>
                     @*view mode*@
                     @if (Model.PagingFilteringContext.AllowProductViewModeChanging && Model.Products.Count > 0)
                     {
-                        <div class="col-md-4 pull-text-center ">
-                            <div class="row filtering-navigation-item filtering-navigation-item-one">
-                                <div class="col-md-5 remove_right_padding">
-                                   
-                                    <div class="breadcrumbs pull-right">
-                                        <ol class="breadcrumb">
-                                            <li><a>@T("Catalog.ViewMode")</a></li>
-                                        </ol>
-                                    </div>
-
-                                </div>
-																			
-
-																			
-
-
-                                <div class="col-md-6 remove_left_padding form-two text-left">
-                                    <form class="pull-left">@Html.DropDownList("products-viewmode", Model.PagingFilteringContext.AvailableViewModes, new { @class = "", onchange = "setLocation(this.value);" })</form>
-                                    
-                                </div>
-                            </div>
+                        <div class="pull-right">
+                            <form class="pull-left">
+                                <label class="control-label"><a>@T("Catalog.ViewMode")</a></label>
+                                @Html.DropDownList("products-viewmode", Model.PagingFilteringContext.AvailableViewModes, new { @class = "form-control input-sm", onchange = "setLocation(this.value);" })
+                            </form>
                         </div>
                     }
                     @*sorting*@
                     @if (Model.PagingFilteringContext.AllowProductSorting && Model.Products.Count > 0)
                     {
-                        <div class="col-md-4 pull-text-center">
-                            <div class="row  filtering-navigation-item filtering-navigation-item-two">
-                                <div class="col-md-5 remove_right_padding">
-                                    <div class="breadcrumbs pull-right">
-                                        <ol class="breadcrumb">
-                                            <li><a>@T("Catalog.OrderBy")</a></li>
-                                        </ol>
-                                    </div>
-                                </div>
-
-
-                                
-
-                                <div class="col-md-8 remove_left_padding form-two">
-                                    <form class="pull-left">@Html.DropDownList("products-orderby", Model.PagingFilteringContext.AvailableSortOptions, new { @class = "", onchange = "setLocation(this.value);" })</form>
-                                </div>
-                            </div>                  
+                        <div class="pull-right">
+                            <form>
+                                <label class="control-label"><a>@T("Catalog.OrderBy")</a></label>
+                                @Html.DropDownList("products-orderby", Model.PagingFilteringContext.AvailableSortOptions, new { @class = "form-control input-sm", onchange = "setLocation(this.value);" })
+                            </form>
                         </div>
                     }
                     @*page size*@
                     @if (Model.PagingFilteringContext.AllowCustomersToSelectPageSize && Model.Products.Count > 0)
                     {
-                        <div class="col-md-4 pull-text-center">
-                            <div class="row filtering-navigation-item filtering-navigation-item-three">
-                                
-                                <div class="col-md-6 remove_right_padding ">
-                                    <div class="breadcrumbs pull-right">
-                                        <ol class="breadcrumb">
-                                            <li><a>@T("Catalog.PageSize") @T("Catalog.PageSize.PerPage")</a></li>
-                                        </ol>
-                                    </div>
-                                </div>
-
-                                
-                                <div class="col-md-5 remove_left_padding remove_right_padding form-two customed-form-two pull-right">
-                                    <form class="pull-left">@Html.DropDownList("products-pagesize", Model.PagingFilteringContext.PageSizeOptions, new { @class = "", onchange = "setLocation(this.value);" })</form>
-                                </div>
-                               
-                            </div>
+                        <div class="pull-right">
+                            <form>
+                                <label class="control-label"><a>@T("Catalog.PageSize") @T("Catalog.PageSize.PerPage")</a></label>
+                                @Html.DropDownList("products-pagesize", Model.PagingFilteringContext.PageSizeOptions, new { @class = "form-control input-sm", onchange = "setLocation(this.value);" })
+                            </form>
                         </div>
                     }
                 </div>
-                       
-
-
             </div>
-                    
         </div>
         <div class="clearfix space15px"></div>
   
-
         @Html.Widget("categorydetails_before_filters")
         @section left
         {
-            <div class="product-filters-wrapper">
-                @*filtering*@
-                @if (Model.PagingFilteringContext.PriceRangeFilter.Enabled)
-                {
-                    @Html.Partial("_FilterPriceBox", Model.PagingFilteringContext.PriceRangeFilter, new ViewDataDictionary())
-                }
-                @*filtering*@
-                @if (Model.PagingFilteringContext.SpecificationFilter.Enabled)
-                {
-                    @Html.Partial("_FilterSpecsBox", Model.PagingFilteringContext.SpecificationFilter, new ViewDataDictionary())
-                }
-            </div>
+        
+            @*filtering*@
+            @if (Model.PagingFilteringContext.PriceRangeFilter.Enabled)
+            {
+                @Html.Partial("_FilterPriceBox", Model.PagingFilteringContext.PriceRangeFilter, new ViewDataDictionary())
+            }
+            @*filtering*@
+            @if (Model.PagingFilteringContext.SpecificationFilter.Enabled)
+            {
+                @Html.Partial("_FilterSpecsBox", Model.PagingFilteringContext.SpecificationFilter, new ViewDataDictionary())
+            }        
+
         }
         @Html.Widget("categorydetails_before_product_list")
         @*product list*@

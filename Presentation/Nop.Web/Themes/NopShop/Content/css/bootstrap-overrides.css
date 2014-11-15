@@ -1,0 +1,47 @@
+﻿.portlet.light {
+    background-color: #fff;
+    padding: 1px 10px 1px;
+}
+
+.portlet.light > .portlet-title > .caption {    
+    padding: 8px 0;
+}
+
+.portlet.light > .portlet-title {
+    min-height: 28px;
+    padding: 0;
+}
+
+.sidebar-filter {
+    background: none repeat scroll 0 0 #fff;
+    padding: 5px 5px 1px;
+}
+
+.ecommerce .sidebar {    
+    font: 14px "PT Sans Narrow",sans-serif;
+    text-transform: uppercase;
+}
+
+.breadcrumb {   
+    margin-bottom: 10px;    
+}
+
+.list-view-sorting {
+    margin-bottom: 1px;
+}
+
+.ecommerce .header-navigation > ul > li > a {    
+    padding: 18px 12px 12px;
+}
+
+.no-pad-right{
+    padding-right: 0px;
+}
+
+.no-pad-left {
+    padding-left: 0px;
+}
+
+.nav-tabs, .nav-pills {
+    margin-bottom: 1px;
+}

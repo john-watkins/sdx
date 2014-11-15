@@ -1,31 +1,65 @@
 ﻿@model IList<ProductOverviewModel>
 
 @using Nop.Web.Models.Catalog;
+@{
+    int i = 0;
+
+}
 
 @if (Model.Count > 0)
 {
-    <div class="features_items"><!--features_items-->
-        <h2 class="title text-center">@T("HomePage.Products")</h2>
-            @foreach (var item in Model)
-            {
-                    
-                    
-                <div class="col-lg-4 col-md-4 col-sm-6 col-md-12">
-                    
-                        @Html.Partial("_ProductBox", item)
-                    
+    <section id="slider">
+        <!--slider-->
+        <div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div id="slider-carousel" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            @foreach (var item in Model)
+                            {
+                                if (i == 0)
+                                {
+                                    <li data-target="#slider-carousel" data-slide-to="0" class="active"></li>
+                                }
+                                else
+                                {
+                                    <li data-target="#slider-carousel" data-slide-to="@i"></li>
+                                }
+                                i++;
+                            }
+                            @{
+    i = 0;
+                            }
+                        </ol>
+                        <div class="carousel-inner">
+                            @foreach (var item in Model)
+                            {
+                                string sActive = (i == 0) ? "active" : "";
+                                <div class="item @sActive">
+                                    <div class="col-sm-6">
+                                        <h1>something here</h1>
+                                        <button type="button" class="btn btn-primary get">Get it now</button>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <img src="@item.DefaultPictureModel.FullSizeImageUrl" class="girl img-responsive" alt="" />
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                        <a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
+                            <i class="fa fa-angle-left"></i>
+                        </a>
+                        <a href="#slider-carousel" class="right control-carousel hidden-xs" data-slide="next">
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+                    </div>
                 </div>
-                    
+            </div>
+        </div>
+    </section><!--/slider-->
 
-                    
-            }
-        
-						
-    </div>
-
-
-   
-} 
+}
 
 
 

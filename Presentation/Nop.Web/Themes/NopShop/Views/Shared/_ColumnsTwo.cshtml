@@ -28,10 +28,9 @@
         currentProductId = Convert.ToInt32(Url.RequestContext.RouteData.Values["productId"].ToString());
     }
 }
-<div class="container">
+<div class="container main-content-container">
     <div class="row">
-        
-        <div class="col-md-3 left-sidebar">
+        <div class="col-md-2 sidebar">
             @if (IsSectionDefined("left"))
             {
                 @RenderSection("left")
@@ -42,17 +41,17 @@
                 @Html.Widget("left_side_column_before")
                 @Html.Action("CategoryNavigation", "Catalog", new { currentCategoryId = currentCategoryId, currentProductId = currentProductId })
                 @Html.Widget("left_side_column_after_category_navigation")
-                @Html.Action("ManufacturerNavigation", "Catalog", new { currentManufacturerId = currentManufacturerId })        
+                @Html.Action("ManufacturerNavigation", "Catalog", new { currentManufacturerId = currentManufacturerId })
                 @*@Html.Action("NewsletterBox", "Newsletter")*@
                 @Html.Widget("left_side_column_after")
             }
         </div>
-        <div class="col-md-9 padding-right">
+        <div class="col-md-10 no-pad-right">
             @Html.Widget("main_column_before")
             @RenderBody()
             @Html.Widget("main_column_after")
         </div>
 
     </div>
-    
+
 </div>
