@@ -83,6 +83,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ComponentModel\LinqExtensions.cs" />
     <Compile Include="ComponentModel\WriteLockDisposable.cs" />
     <Compile Include="Domain\Catalog\AttributeValueType.cs" />
     <Compile Include="Domain\Catalog\ProductType.cs" />

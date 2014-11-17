@@ -35,44 +35,29 @@
     }
     else
     {
-        <div class="@if (String.IsNullOrWhiteSpace(Model.PriceWithDiscount))
-                    {<text>product-price</text>}
-                    else
-                    {<text>non-discounted-price</text>}">
-
-            @if (!String.IsNullOrWhiteSpace(Model.OldPrice) || !String.IsNullOrWhiteSpace(Model.PriceWithDiscount))
-            {
-                @*display "Price:" label if we have old price or discounted one*@
-                <label>@T("Products.Price"):</label>
-            }
-            
+        <div class="">
+           
             @*render price*@
             <span @if (String.IsNullOrWhiteSpace(Model.PriceWithDiscount)) { <text>itemprop="price"</text> } >
-                @if (dynamicPriceUpdateSupported && !Model.HidePrices && String.IsNullOrWhiteSpace(Model.PriceWithDiscount))
-                {
-                    @Html.Raw(Regex.Replace(Model.Price, pattern, replacement))
-                }
-                else
-                {
-                    @Html.Raw(Model.Price)
-                }
+                <strong>
+                    @if (dynamicPriceUpdateSupported && !Model.HidePrices && String.IsNullOrWhiteSpace(Model.PriceWithDiscount))
+                    {
+                        @Html.Raw(Regex.Replace(Model.Price, pattern, replacement))
+                    }
+                    else
+                    {
+                        @Html.Raw(Model.Price)
+                    }
+                </strong>
             </span>
+            @if (!String.IsNullOrWhiteSpace(Model.OldPrice))
+            {
+                @*old price*@
+                <span class="">
+                    <em>$<span>@Model.OldPrice</span></em>
+                </span>
+            }
         </div>
-
-
-        if (!String.IsNullOrWhiteSpace(Model.OldPrice))
-        {
-            @*old price*@
-            <div class="old-product-price">
-                <label>@T("Products.Price.OldPrice"):</label>
-                <span>@Model.OldPrice</span>
-            </div>
-        }
-
-
-
-        
-        
         
         if (!String.IsNullOrWhiteSpace(Model.PriceWithDiscount))
         {

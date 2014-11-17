@@ -22,34 +22,35 @@
 @*category breadcrumb*@
 @if (Model.DisplayCategoryBreadcrumb)
 {
-    <div>    
+    <div>
         <div>
-            <ul class="breadcrumb">            
+            <ul class="breadcrumb">
                 <li><a href="@Url.RouteUrl("HomePage")" title="@T("Categories.Breadcrumb.Top")">@T("Categories.Breadcrumb.Top")</a></li>
                 @foreach (var cat in Model.CategoryBreadcrumb)
                 {
                     var isLastCategory = cat.Id == Model.Id;
-            
+
                     if (isLastCategory)
-                    {   
+                    {
                         <li class="active">@cat.Name</li>
                     }
                     else
                     {
                         <li><a href="@Url.RouteUrl("Category", new { SeName = cat.SeName })" title="@cat.Name">@cat.Name</a></li>
                     }
-            
+
                 }
-            
+
             </ul>
         </div>
     </div>
 
     @Html.Widget("categorydetails_after_breadcrumb")
 }
-<div class="features_items"><!--features_items-->
+<div class="features_items">
+    <!--features_items-->
     <div>
-        @Html.Widget("categorydetails_top")        
+        @Html.Widget("categorydetails_top")
         @*description*@
         @if (!String.IsNullOrWhiteSpace(Model.Description))
         {
@@ -64,26 +65,31 @@
             <div class="row">
                 @foreach (var item in Model.SubCategories)
                 {
-                
-                    <div class="col-md-3"> 
+
+                    <div class="col-md-3">
                         <div class="product-image-wrapper">
                             <div class="single-products">
                                 <div class="productinfo text-center">
-                                    <a href="@Url.RouteUrl("Category", new { SeName = item.SeName })" title="@item.PictureModel.Title"><img alt="@item.PictureModel.AlternateText" src="@item.PictureModel.ImageUrl"
-                                         title="@item.PictureModel.Title" /></a>
-                                    
-                                    <p><a href="@Url.RouteUrl("Category", new { SeName = item.SeName })" title="@item.PictureModel.Title">
-                                        @item.Name</a></p>
-                                    
+                                    <a href="@Url.RouteUrl("Category", new { SeName = item.SeName })" title="@item.PictureModel.Title">
+                                        <img alt="@item.PictureModel.AlternateText" src="@item.PictureModel.ImageUrl"
+                                             title="@item.PictureModel.Title" />
+                                    </a>
+
+                                    <p>
+                                        <a href="@Url.RouteUrl("Category", new { SeName = item.SeName })" title="@item.PictureModel.Title">
+                                            @item.Name
+                                        </a>
+                                    </p>
+
                                 </div>
-												
+
                             </div>
                         </div>
                     </div>
                 }
             </div>
 
-        }   
+        }
         <div class="row list-view-sorting clearfix">
             <div class="col-md-12">
                 <div>
@@ -124,11 +130,11 @@
             </div>
         </div>
         <div class="clearfix space15px"></div>
-  
+
         @Html.Widget("categorydetails_before_filters")
         @section left
         {
-        
+
             @*filtering*@
             @if (Model.PagingFilteringContext.PriceRangeFilter.Enabled)
             {
@@ -138,7 +144,7 @@
             @if (Model.PagingFilteringContext.SpecificationFilter.Enabled)
             {
                 @Html.Partial("_FilterSpecsBox", Model.PagingFilteringContext.SpecificationFilter, new ViewDataDictionary())
-            }        
+            }
 
         }
         @Html.Widget("categorydetails_before_product_list")
@@ -147,61 +153,50 @@
         {
             if (Model.PagingFilteringContext.ViewMode == "list")
             {
-                     @*list mode*@
+                @*list mode*@
                 <div class="product-list">
-                    
+
                     @foreach (var product in Model.Products)
                     {
                         <div class="row">
-                            
-                        
                             <div class="col-md-12">
                                 <div class="offer offer-default">
-                                    @Html.Partial("_ProductBox", product)
+                                    <div class="row product-list">
+                                        @Html.Partial("_ProductBox", product)
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
-                        
                     }
-                </div>       
+                </div>
             }
             else
             {
-                    @*grid mode*@
+                @*list mode*@
+                <div class="product-list">
 
-                <div class="product-grid home-page-product-grid">
-                    <div class="row ">
-                    
-                        @foreach (var product in Model.Products)
-                        {
-
-                            <div class="col-md-4">
-                                <div class="offer offer-default silde-show-offer pull-text-center">
-                                    @Html.Partial("_ProductBox", product)
+                    @foreach (var product in Model.Products)
+                    {
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="offer offer-default">
+                                    <div class="row product-list">
+                                        @Html.Partial("_ProductBox", product)
+                                    </div>
                                 </div>
                             </div>
-
-                        }
-                    </div>
+                        </div>
+                    }
                 </div>
-
-                
             }
         }
         <div class="pagination-area">
             <div class="pagination">
                 @Html.Pager(Model.PagingFilteringContext).QueryParam("pagenumber")
             </div>
-           
         </div>
-
-
-        
         @Html.Widget("categorydetails_bottom")
     </div>
-
-						
 </div>
 
 
@@ -209,32 +204,32 @@
 
 @Html.Widget("categorydetails_after_featured_products")
 @*featured products*@
-@if (Model.FeaturedProducts.Count > 0)
+@*@if (Model.FeaturedProducts.Count > 0)
 {
-   
-
     var best_i = 0;
-    <div class="recommended_items"><!--recommended_items-->
+    <div class="recommended_items">
+        recommended_items
         <h2 class="title text-center">@T("Products.FeaturedProducts")</h2>
-						
+
         <div id="recommended-item-carousel-2" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
                 @foreach (var item in Model.FeaturedProducts)
                 {
-                    if(best_i%3==0)
+                    if (best_i % 3 == 0)
                     {
-                        if(best_i==0)
+                        if (best_i == 0)
                         {
                             @:<div class="item active">
-                            @:<div class="row" >    
-                        }else
+                                @:<div class="row">
+                        }
+                        else
                         {
                             @:<div class="item">
-                            @:<div class="row" >  
+                                @:<div class="row">
                         }
-                        
 
-                            
+
+
 
                     }
                     <div class="col-lg-4">
@@ -245,40 +240,41 @@
                     </div>
 
 
-                    if(best_i%3==2)
+                    if (best_i % 3 == 2)
                     {
-                        @:</div> 
-                        @:</div> 
+                        @:
+                    </div>
+                    @:
+                </div>
                     }
                     best_i++;
                 }
-                @if(best_i%3!=0)
+                @if (best_i % 3 != 0)
                 {
-                    @:</div> 
-                    @:</div> 
+                    @:
+                </div>
+                    @:
+                </div>
                 }
-                
+
             </div>
             <a class="left recommended-item-control" href="#recommended-item-carousel-2" data-slide="prev">
                 <i class="fa fa-angle-left"></i>
             </a>
             <a class="right recommended-item-control" href="#recommended-item-carousel-2" data-slide="next">
                 <i class="fa fa-angle-right"></i>
-            </a>			
+            </a>
         </div>
-    </div>
-
-
-
-}
+    </div>    
+}*@
 @Html.Widget("categorydetails_before_featured_products")
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#show-more-subctegory-button").on("click",function () {
+        $("#show-more-subctegory-button").on("click", function () {
             $(".show-more-subcategory-div").each(function () {
                 $(this).css({
-                   display:"block" 
+                    display: "block"
                 });
             });
         });

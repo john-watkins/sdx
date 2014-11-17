@@ -154,40 +154,7 @@ label {
         background: url(images/star-x-active.png) 0 0 repeat-x;
     }
 
-
-.price.old-price {
-    text-decoration: line-through;
-    font-size: 18px;
-}
-
-.product-overlay {
-    color: #ffffff;
-}
-
-    .product-overlay a {
-        color: #ffffff;
-    }
-
-        .product-overlay a:hover {
-            color: #696763;
-            text-decoration: none;
-        }
-
-.box-product.single-products {
-    height: 375px;
-    overflow: hidden;
-}
-
-    .box-product.single-products .productinfo img {
-        height: 240px;
-    }
-
-    .overlay-content h4>a {
-        color: #ffffff;
-    }
-    .overlay-content h4>a:hover {
-        color: #696763;
-    }
+   
 /*------------------------------------*\
   Product Box view End
 \*------------------------------------*/

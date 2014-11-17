@@ -12,3 +12,16 @@ $(document).ready(function () {
         $('#RGB').css('background', 'rgb(' + r.getValue() + ',' + g.getValue() + ',' + b.getValue() + ')')
     };	
 });
+
+var NopTronic = function () {
+
+    return {
+        scrollTo: function (el, offset) {
+            setTimeout(function () {
+                $('html, body').animate({
+                    scrollTop: el.offset().top - offset
+                }, 200);
+            },300);            
+        }
+    };
+}();

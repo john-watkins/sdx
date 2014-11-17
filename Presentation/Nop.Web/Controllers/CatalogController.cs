@@ -677,7 +677,7 @@ namespace Nop.Web.Controllers
                 ForumEnabled = _forumSettings.ForumsEnabled
             };
             return PartialView(model);
-        }
+        }       
         
         [ChildActionOnly]
         public ActionResult HomepageCategories()

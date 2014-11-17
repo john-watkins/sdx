@@ -1,6 +1,7 @@
 ﻿@model TopMenuModel
 @using System.Text.RegularExpressions
 @using Nop.Web.Models.Catalog;
+@using Nop.Core.ComponentModel;
 @{
     var isRtl = this.ShouldUseRtlTheme();
 }
@@ -13,21 +14,23 @@
             &nbsp;<i class="fa fa-angle-down"></i>
         </a>
         <ul class="dropdown-menu">
-            @foreach (var subCategory in category.SubCategories)
-            {
-                <li>
-                    <div class="header-navigation-content">
-                        <div class="row">
+            <li>
+                <div class="header-navigation-content">
+                    <div class="row">
+                        @foreach (var subCategory in category.SubCategories)
+                        {
                             <div class="col-md-4 header-navigation-col">
-                                <h4>@subCategory.Name</h4>
+                                <a href="@(Url.RouteUrl("Category", new { SeName = subCategory.SeName }))">
+                                    <h4>@subCategory.Name</h4>
+                                </a>
                                 <ul>
                                     @RenderSubCategory(subCategory, level + 1)
                                 </ul>
                             </div>
-                        </div>
+                        }
                     </div>
-                </li>
-            }
+                </div>
+            </li>
         </ul>
 
     </li>
@@ -37,14 +40,19 @@
 {
     if (category.SubCategories.Count > 0)
     {
-        @RenderSubCategoryLine(category, 0)
+        var list = category.SubCategories.Flatten((myObject, objectsBeingFlattened) =>
+                    myObject.SubCategories.Except(objectsBeingFlattened))
+         .ToList();
+        foreach (var cat in list)
+        {
+            <li>
+                <a href="@Url.RouteUrl("Category", new { SeName = cat.SeName })">@cat.Name</a>
+            </li>
+        }
     }
     else
     {
 
-        @*<li>
-                <a href="@Url.RouteUrl("Category", new { SeName = category.SeName })">@category.Name</a>
-            </li>*@
     }
 }
 

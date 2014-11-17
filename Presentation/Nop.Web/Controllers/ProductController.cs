@@ -842,6 +842,7 @@ namespace Nop.Web.Controllers
 
         #region Product details page
 
+        
         [NopHttpsRequirement(SslRequirement.No)]
         public ActionResult ProductDetails(int productId, int updatecartitemid = 0)
         {
@@ -1248,6 +1249,23 @@ namespace Nop.Web.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        [NopHttpsRequirement(SslRequirement.No)]
+        public JsonResult GetProductReviews(int productId)
+        {
+            var product = _productService.GetProductById(productId);
+            var model = new ProductReviewsModel();
+            if (product == null || product.Deleted || !product.Published || !product.AllowCustomerReviews)
+                return Json(model);            
+            PrepareProductReviewsModel(model, product);
+            //only registered users can leave reviews
+            if (_workContext.CurrentCustomer.IsGuest() && !_catalogSettings.AllowAnonymousUsersToReviewProduct)
+                ModelState.AddModelError("", _localizationService.GetResource("Reviews.OnlyRegisteredUsersCanWriteReviews"));
+            //default value
+            model.AddProductReview.Rating = _catalogSettings.DefaultProductRatingValue;
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost, ActionName("ProductReviews")]
         [FormValueRequired("add-review")]
         [CaptchaValidator]
@@ -1257,6 +1275,22 @@ namespace Nop.Web.Controllers
             if (product == null || product.Deleted || !product.Published || !product.AllowCustomerReviews)
                 return RedirectToRoute("HomePage");
 
+            ValidateProductReviewsModel(model, captchaValid);
+
+            if (ModelState.IsValid)
+            {
+                model = AddProductReviewLocal(product, model);
+
+                return View(model);
+            }
+
+            //If we got this far, something failed, redisplay form
+            PrepareProductReviewsModel(model, product);
+            return View(model);
+        }
+
+        private void ValidateProductReviewsModel(ProductReviewsModel model,bool captchaValid)
+        {
             //validate CAPTCHA
             if (_captchaSettings.Enabled && _captchaSettings.ShowOnProductReviewPage && !captchaValid)
             {
@@ -1267,9 +1301,26 @@ namespace Nop.Web.Controllers
             {
                 ModelState.AddModelError("", _localizationService.GetResource("Reviews.OnlyRegisteredUsersCanWriteReviews"));
             }
+        }
+
+        [HttpPost]
+        public JsonResult AddProductReview(int productId, ProductReviewsModel model,bool captchaValid)
+        {
+            var product = _productService.GetProductById(productId);
+            if (product == null || product.Deleted || !product.Published || !product.AllowCustomerReviews)
+                throw new Exception("Invalid operation.");
+
+            ValidateProductReviewsModel(model, captchaValid);
 
             if (ModelState.IsValid)
             {
+                model = AddProductReviewLocal(product, model);                
+            }
+            return Json(model);
+        }
+
+        private ProductReviewsModel AddProductReviewLocal(Product product, ProductReviewsModel model)
+        {            
                 //save review
                 int rating = model.AddProductReview.Rating;
                 if (rating < 1 || rating > 5)
@@ -1312,12 +1363,7 @@ namespace Nop.Web.Controllers
                 else
                     model.AddProductReview.Result = _localizationService.GetResource("Reviews.SuccessfullyAdded");
 
-                return View(model);
-            }
-
-            //If we got this far, something failed, redisplay form
-            PrepareProductReviewsModel(model, product);
-            return View(model);
+                return model;            
         }
 
         [HttpPost]

@@ -11,13 +11,7 @@
 @if (Model.AllowCustomerReviews)
 {
     <div class="product-reviews-overview" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
-        @*<div class="product-review-box">
-            <div class="rating">
-                <div style="width: @(ratingPercent)%">
-                </div>
-            </div>
-        </div>*@
-
+       
                 @{
 
                     double ratingNumber= 0;
@@ -29,54 +23,17 @@
                     if(Model.TotalReviews != 0)
                     {
                         ratingNumber = ((Model.RatingSum * 100.0) / Model.TotalReviews)/100.0 ;
-                    }
-                    fullStar = (int)ratingNumber;
-                    fractionNumber = ratingNumber - fullStar;
-                    
-                    if(fractionNumber > 0.75)
-                    {
-                        fullStar++;
-                    } else if(fractionNumber > 0.25 && fractionStar < 0.75)
-                    {
-                        fractionStar++;
-                    }else if (fractionNumber>0 && fractionNumber < 0.25)
-                    {
-                        emptyStar++;
-                    }
-                    
-                    emptyStar += (5 - fullStar - fractionStar);
-
-                    <div class="rating-div hide-on-grid">
-                        
-                    
-                        @for (int i = 0; i <fullStar; i++)
-                        {
-                            <i class="fa fa-star"></i>
-
-                        }
-                        @for (int i = 0; i <fractionStar; i++)
-                        {
-                            <i class="fa fa-star-half-full"></i>
-
-                        }
-                        @for (int i = 0; i <emptyStar; i++)
-                        {
-                            <i class="fa fa-star-o"></i>
-
-                        }
+                    }                                                           
+                    <input type="range" value="@ratingNumber" step="0.25" id="backing4">
+                    <div class="rateit" data-rateit-backingfld="#backing4" data-rateit-resetable="false" data-rateit-ispreset="true" data-rateit-min="0" data-rateit-max="5">
                     </div>
-
-
-
-                    
-
                 }
 
         @if (Model.TotalReviews > 0)
         {
             <div class="product-review-links">
                 <a href="@Url.RouteUrl("ProductReviews", new { productId = Model.ProductId })">@Model.TotalReviews
-                    @T("Reviews.Overview.Reviews")</a> <span class="separator">|</span> <a href="@Url.RouteUrl("ProductReviews", new { productId = Model.ProductId })">@T("Reviews.Overview.AddNew")</a>
+                    @T("Reviews.Overview.Reviews")</a> <span class="separator">|</span> <a href="javascript:void(0);" onclick="ProductTemplateController.addReviewClick();">@T("Reviews.Overview.AddNew")</a>
             </div>
             @*hidden microdata info*@
             decimal ratingValue = ratingPercent / (decimal)20;

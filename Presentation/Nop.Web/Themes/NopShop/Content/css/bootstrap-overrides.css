@@ -3,6 +3,10 @@
     padding: 1px 10px 1px;
 }
 
+.fa-lg, .icon-lg {
+    font-size: 45px !important;
+}
+
 .portlet.light > .portlet-title > .caption {    
     padding: 8px 0;
 }
@@ -44,4 +48,44 @@
 
 .nav-tabs, .nav-pills {
     margin-bottom: 1px;
+}
+
+.header-navigation-content h4, .ecommerce .header-navigation-content h4 {    
+    font: 15px "PT Sans Narrow",sans-serif;
+    margin: 0 0 4px;
+    padding: 5px 5px 5px;    
+}
+
+.header-navigation .dropdown-menu li > a {
+    color: #767f88;    
+    padding: 5px 8px;
+    font: 13px "PT Sans Narrow",sans-serif;
+    text-transform: uppercase;
+}
+
+body.ecommerce {
+    background: none repeat scroll 0 0 #F7F7F7;
+}
+
+.product-list .product-item {
+    margin-bottom: 2px;
+}
+
+.top-cart-block {          
+    color: #fff;
+    line-height: 1.2;
+    padding: 2px 5px 5px;
+    background: none repeat scroll 0 0 #00395c;    
+    margin-right:2px;
+}
+
+.top-cart-block .fa-shopping-cart {
+    background: none repeat scroll 0 0 #00395c;    
+    border-radius: 0px !important; 
+    color: #fff;
+    font-size: 16px;
+    padding-right: 5px;
+    position: relative;
+    right: 0;
+    top: 0;
 }
