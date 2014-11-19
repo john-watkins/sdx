@@ -283,6 +283,7 @@
     <Compile Include="Models\Common\AdminHeaderLinksModel.cs" />
     <Compile Include="Models\Common\FooterModel.cs" />
     <Compile Include="Models\Common\FaviconModel.cs" />
+    <Compile Include="Models\Common\JsonResponse.cs" />
     <Compile Include="Models\Common\PagerModel.cs" />
     <Compile Include="Models\Common\StoreThemeModel.cs" />
     <Compile Include="Models\Common\LanguageSelectorModel.cs" />
@@ -5989,10 +5990,12 @@
     <Content Include="Themes\NopShop\Scripts\jquery.slimscroll.min.js" />
     <Content Include="Themes\NopShop\Scripts\main.js" />
     <Content Include="Themes\NopShop\Scripts\price-range.js" />
-    <Content Include="Themes\NopShop\Scripts\product-service.js" />
+    <Content Include="Themes\NopShop\Scripts\services\product-service.js" />
     <Content Include="Themes\NopShop\Scripts\respond.min.js" />
+    <Content Include="Themes\NopShop\Scripts\services\shoppingcart-service.js" />
     <Content Include="Themes\NopShop\Scripts\styleSheetToogle.js" />
-    <Content Include="Themes\NopShop\Scripts\views\product-template.js" />
+    <Content Include="Themes\NopShop\Scripts\views\product-template-controller.js" />
+    <Content Include="Themes\NopShop\Scripts\views\shoppingcart-controller.js" />
     <Content Include="Themes\NopShop\Views\preview.jpg" />
     <Content Include="Themes\print.css" />
     <Content Include="Web.config">
@@ -6479,6 +6482,8 @@
     <Content Include="Themes\NopShop\Content\side-shopping-cart\partials\_variables.scss" />
     <Content Include="Themes\NopShop\Content\side-shopping-cart\readme.pdf" />
     <Content Include="Themes\NopShop\Content\side-shopping-cart\scss\style.scss" />
+    <Content Include="Themes\NopShop\Views\Common\ShoppingCartLink.cshtml" />
+    <Content Include="Themes\NopShop\Views\ShoppingCart\NopTronicFlyoutShoppingCart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Plugins\bin\" />

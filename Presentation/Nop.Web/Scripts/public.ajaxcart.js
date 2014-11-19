@@ -9,13 +9,18 @@ var AjaxCart = {
     topcartselector: '',
     topwishlistselector: '',
     flyoutcartselector: '',
+    cartsubtotalselector: '',
+    itemtextselector: '',
+    itemcount: 0,
 
-    init: function (usepopupnotifications, topcartselector, topwishlistselector, flyoutcartselector) {
+    init: function (usepopupnotifications, topcartselector, topwishlistselector, flyoutcartselector,cartsubtotalselector,itemtextselector) {
         this.loadWaiting = false;
         this.usepopupnotifications = usepopupnotifications;
         this.topcartselector = topcartselector;
         this.topwishlistselector = topwishlistselector;
         this.flyoutcartselector = flyoutcartselector;
+        this.cartsubtotalselector = cartsubtotalselector;
+        this.itemtextselector = itemtextselector;
     },
 
     setLoadWaiting: function (display) {
@@ -60,7 +65,14 @@ var AjaxCart = {
     
     success_process: function (response) {
         if (response.updatetopcartsectionhtml) {
+            AjaxCart.itemcount = parseInt(response.updatetopcartsectionhtml);
             $(AjaxCart.topcartselector).html(response.updatetopcartsectionhtml);
+            var i = AjaxCart.itemcount;
+            var t = (i > 1 || i == 0) ? "items" : "item";
+            $(AjaxCart.itemtextselector).html(t);
+        }        
+        if (response.cartsubtotal) {
+            $(AjaxCart.cartsubtotalselector).html(response.cartsubtotal);
         }
         if (response.updatetopwishlistsectionhtml) {
             $(AjaxCart.topwishlistselector).html(response.updatetopwishlistsectionhtml);

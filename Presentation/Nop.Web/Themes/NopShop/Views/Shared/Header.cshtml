@@ -1,33 +1,8 @@
-﻿<div class="header-middle"><!--header-middle-->
-    <div>
-        <div class="row">
-            <div class="col-sm-3">
-                <div class="logo pull-left">
-                    <a class="logo" href="@Url.RouteUrl("HomePage")">
-                        <img src="~/Themes/NopShop/Content/css/images/doxshop.png"/>
-                    </a>
-                </div>
-                <div class="btn-group pull-right">                                        
-                    @Html.Action("LanguageSelector", "Common")                    
-                    @Html.Action("TaxTypeSelector", "Common")                                     
-                </div>
-            </div>
-            <div class="col-sm-7">                
-                @Html.Action("TopMenu", "Catalog")<!--/header-bottom-->
-            </div>
-            <div class="col-sm-2 no-pad-right">
-                @Html.Action("SearchBox", "Catalog")
-            </div>            
-        </div>                
-    </div>    
-</div>
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            @Html.Partial("_Notifications")
-        </div>
-    </div>
-</div>
+﻿
+    @Html.Action("LanguageSelector", "Common")                    
+    @Html.Action("TaxTypeSelector", "Common")                                     
+    @Html.Action("TopMenu", "Catalog")<!--/header-bottom-->
+    @Html.Action("SearchBox", "Catalog")    
 
 
 

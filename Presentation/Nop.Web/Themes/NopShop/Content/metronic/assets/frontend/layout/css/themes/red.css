@@ -4,9 +4,21 @@ a {
 a:hover {
 	color: #E02222;
 }
-.pre-header a:hover {
-	color: #E02222;
+.pre-header {
+    background: none repeat scroll 0 0 #E13400;
 }
+.pre-header .additional-shop-info a {
+    color: #fff;
+}
+
+.pre-header .additional-nav a {
+    color: #fff;
+}
+
+.pre-header a:hover {
+	color: #903535;
+}
+
 .shop-currencies a.current {
 	color: #E02222;
 }
@@ -286,6 +298,19 @@ a:hover {
 }
 .content-search input:focus {
 	border: solid 1px #e94d1c;
+}
+
+.btn-info {
+    background-color: #e26a6a !important;
+    background-image: none !important;
+    border-color: #e26a6a !important;
+    color: white !important;
+}
+
+.btn-info:hover,
+.btn-info:focus,
+.btn-info:active {
+	background: #cc3304 !important;
 }
 
 .btn-primary {

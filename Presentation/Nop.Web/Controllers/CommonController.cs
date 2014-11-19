@@ -343,6 +343,33 @@ namespace Nop.Web.Controllers
 
         //header links
         [ChildActionOnly]
+        public ActionResult ShoppingCartLink()
+        {
+            var customer = _workContext.CurrentCustomer;
+
+            var model = new HeaderLinksModel()
+            {                                
+                ShoppingCartEnabled = _permissionService.Authorize(StandardPermissionProvider.EnableShoppingCart),                
+            };        
+            
+            //performance optimization (use "HasShoppingCartItems" property)
+            if (customer.HasShoppingCartItems)
+            {
+                model.ShoppingCartItems = customer.ShoppingCartItems
+                    .Where(sci => sci.ShoppingCartType == ShoppingCartType.ShoppingCart)
+                    .LimitPerStore(_storeContext.CurrentStore.Id)
+                    .ToList()
+                    .GetTotalProducts();
+                model.WishlistItems = customer.ShoppingCartItems
+                    .Where(sci => sci.ShoppingCartType == ShoppingCartType.Wishlist)
+                    .LimitPerStore(_storeContext.CurrentStore.Id)
+                    .ToList()
+                    .GetTotalProducts();
+            }
+            return PartialView(model);
+        }
+
+        [ChildActionOnly]
         public ActionResult HeaderLinks()
         {
             var customer = _workContext.CurrentCustomer;
@@ -372,21 +399,7 @@ namespace Nop.Web.Controllers
                 AllowPrivateMessages = customer.IsRegistered() && _forumSettings.AllowPrivateMessages,
                 UnreadPrivateMessages = unreadMessage,
                 AlertMessage = alertMessage,
-            };
-            //performance optimization (use "HasShoppingCartItems" property)
-            if (customer.HasShoppingCartItems)
-            {
-                model.ShoppingCartItems = customer.ShoppingCartItems
-                    .Where(sci => sci.ShoppingCartType == ShoppingCartType.ShoppingCart)
-                    .LimitPerStore(_storeContext.CurrentStore.Id)
-                    .ToList()
-                    .GetTotalProducts();
-                model.WishlistItems = customer.ShoppingCartItems
-                    .Where(sci => sci.ShoppingCartType == ShoppingCartType.Wishlist)
-                    .LimitPerStore(_storeContext.CurrentStore.Id)
-                    .ToList()
-                    .GetTotalProducts();
-            }
+            };            
 
             return PartialView(model);
         }

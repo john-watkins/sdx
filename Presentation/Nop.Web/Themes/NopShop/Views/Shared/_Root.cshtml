@@ -7,64 +7,64 @@
 @*@Html.Partial("_Notifications")*@
 <div>
     @Html.Action("JavaScriptDisabledWarning", "Common")
-    <div>
-        <script type="text/javascript">
-            AjaxCart.init(false, '.cart-qty', '.wishlist-qty', '#flyout-cart');
-        </script>
+    <script type="text/javascript">
+        AjaxCart.init(false, '.cart-qty', '.wishlist-qty', '#flyout-cart', ".cart-sub-total", ".cart-item-text");
+    </script>
 
-        @*ajax loading window*@
-        <div class="ajax-loading-block-window" style="display: block">
-            <div class="loading-image">
-            </div>
+    @*ajax loading window*@
+    <div class="ajax-loading-block-window" style="display: block">
+        <div class="loading-image">
         </div>
-
-        <div>
-            <header id="header">
-                <!--header-->
-                <div class="header_top">
-                    @Html.Partial("TopHeader")<!--/header_top-->
-                    <!--header_top-->
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <div class="contactinfo">
-                                    <ul class="nav nav-pills">
-                                        <li><a href="#"><i class="fa fa-envelope"></i> shop@springdox.com</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-sm-8">
-                                <div class="pull-right">
-                                    <ul class="nav navbar-nav">
-                                        <li>
-                                            @Html.Action("HeaderLinks", "Common")
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="cd-cart-trigger">
-                        <div class="top-cart-block">
-                            <span><i class="fa fa-shopping-cart"></i></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="header-under-top">                    
-                    <div class="container">
-                        @Html.Partial("Header")<!--/header-middle-->
-                    </div>
-                </div>
-            </header>
-            <div id="cd-shadow-layer"></div>
-            @Html.Widget("content_before")
-            <div class="container main-content-container">
-                @RenderBody()
-            </div>
-        </div>
-        @Html.Widget("content_after")
-        @Html.Action("EuCookieLaw", "Common")
     </div>
+
+    <div>
+        <div class="pre-header">
+            <div class="row">
+                <div class="col-md-12">
+                    @Html.Partial("_Notifications")
+                </div>
+            </div>
+            @Html.Partial("TopHeader")<!--/header_top-->
+            <!--header_top-->
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-sm-4 additional-shop-info">
+                        <ul class="list-unstyled list-inline">
+                            <li><a href="#"><i class="fa fa-envelope"></i> shop@springdox.com</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-8 col-sm-8 additional-nav">
+                        <ul class="list-unstyled list-inline pull-right">
+                            <li>
+                                @Html.Action("HeaderLinks", "Common")
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <header id="header" class="header">
+            <!--header-->
+            <div class="container">
+                <a class="site-logo logo" href="@Url.RouteUrl("HomePage")">
+                    <img src="~/Themes/NopShop/Content/css/images/doxshop.png" />
+                </a>
+                <a href="javascript:void(0);" class="mobi-toggler"><i class="fa fa-bars"></i></a>
+                @Html.Action("ShoppingCartLink", "Common")
+                <div class="header-navigation">
+                    <ul>
+                        @Html.Partial("Header")<!--/header-middle-->
+                    </ul>
+                </div>
+            </div>
+        </header>
+        @Html.Widget("content_before")
+        <div class="container main-content-container">
+            @RenderBody()
+        </div>
+    </div>
+    @Html.Widget("content_after")
+    @Html.Action("EuCookieLaw", "Common")
     @Html.Action("Footer", "Common")
 </div>
 @Html.Widget("body_end_html_tag_before")

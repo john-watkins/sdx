@@ -504,6 +504,11 @@ namespace Nop.Web.Infrastructure
                             new { controller = "ShoppingCart", action = "UploadFileProductAttribute" },
                             new { attributeId = @"\d+" },
                             new[] { "Nop.Web.Controllers" });
+            //remove item from cart
+            routes.MapLocalizedRoute("RemoveItemFromCart",
+                          "removeitemfromcart",
+                          new { controller = "ShoppingCart", action = "RemoveItemFromCart" },
+                          new[] { "Nop.Web.Controllers" });
             //checkout attributes with "upload file" type
             routes.MapLocalizedRoute("UploadFileCheckoutAttribute",
                             "uploadfilecheckoutattribute/{attributeId}",

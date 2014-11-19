@@ -67,54 +67,38 @@
         <li>
             <a href="@Url.RouteUrl("Category", new { SeName = category.SeName })">
                 @category.Name
-
-
             </a>
         </li>
     }
 }
 
-<div class="header-bottom">
-    <!--header-bottom-->
-    <div>
-        <div class="row">
-            <div class="col-sm-10">
-                <nav role="navigation" class="header-navigation">
-                    <ul>
-                        @if (Model.Categories.Count > 0)
-                        {
-                            foreach (var category in Model.Categories)
-                            {
-                                @RenderCategoryLine(category, 0)
-                            }
-                        }
-                        else
-                        {
-                            //no categories to display?
-                            //in this cae let's diplay some default menu items
-                            <li><a href="@Url.RouteUrl("HomePage")">@T("HomePage")</a></li>
-                            if (Model.RecentlyAddedProductsEnabled)
-                            {
-                                <li>
-                                    <a href="@Url.RouteUrl("RecentlyAddedProducts")">@T("Products.NewProducts")</a>
-                                </li>
-                            }
-                            <li><a href="@Url.RouteUrl("ProductSearch")">@T("Search")</a> </li>
-                            <li><a href="@Url.RouteUrl("CustomerInfo")">@T("Account.MyAccount")</a></li>
-                            if (Model.BlogEnabled)
-                            {
-                                <li><a href="@Url.RouteUrl("Blog")">@T("Blog")</a></li>
-                            }
-                            if (Model.ForumEnabled)
-                            {
-                                <li><a href="@Url.RouteUrl("Boards")">@T("Forum.Forums")</a></li>
-                            }
-                            <li><a href="@Url.RouteUrl("ContactUs")">@T("ContactUs")</a></li>
-                        }
-                        @Html.Widget("header_menu_after")
-                    </ul>
-                </nav>
-            </div>
-        </div>
-    </div>
-</div>
+    @if (Model.Categories.Count > 0)
+    {
+        foreach (var category in Model.Categories)
+        {
+            @RenderCategoryLine(category, 0)
+        }
+    }
+    else
+    {
+        //no categories to display?
+        //in this cae let's diplay some default menu items
+        <li><a href="@Url.RouteUrl("HomePage")">@T("HomePage")</a></li>
+        if (Model.RecentlyAddedProductsEnabled)
+        {
+            <li>
+                <a href="@Url.RouteUrl("RecentlyAddedProducts")">@T("Products.NewProducts")</a>
+            </li>
+        }
+        <li><a href="@Url.RouteUrl("ProductSearch")">@T("Search")</a> </li>
+        <li><a href="@Url.RouteUrl("CustomerInfo")">@T("Account.MyAccount")</a></li>
+        if (Model.BlogEnabled)
+        {
+            <li><a href="@Url.RouteUrl("Blog")">@T("Blog")</a></li>
+        }
+        if (Model.ForumEnabled)
+        {
+            <li><a href="@Url.RouteUrl("Boards")">@T("Forum.Forums")</a></li>
+        }
+        <li><a href="@Url.RouteUrl("ContactUs")">@T("ContactUs")</a></li>
+    }    

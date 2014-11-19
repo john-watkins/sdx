@@ -40,6 +40,7 @@ using Nop.Web.Framework.UI.Captcha;
 using Nop.Web.Infrastructure.Cache;
 using Nop.Web.Models.Media;
 using Nop.Web.Models.ShoppingCart;
+using Nop.Web.Models.Common;
 
 namespace Nop.Web.Controllers
 {
@@ -820,6 +821,8 @@ namespace Nop.Web.Controllers
                             decimal taxRate = decimal.Zero;
                             decimal shoppingCartUnitPriceWithDiscountBase = _taxService.GetProductPrice(sci.Product, _priceCalculationService.GetUnitPrice(sci, true), out taxRate);
                             decimal shoppingCartUnitPriceWithDiscount = _currencyService.ConvertFromPrimaryStoreCurrency(shoppingCartUnitPriceWithDiscountBase, _workContext.WorkingCurrency);
+                            decimal itemSubTotal = cartItemModel.Quantity * shoppingCartUnitPriceWithDiscount;
+                            cartItemModel.TotalPrice = _priceFormatter.FormatPrice(itemSubTotal);
                             cartItemModel.UnitPrice = _priceFormatter.FormatPrice(shoppingCartUnitPriceWithDiscount);
                         }
 
@@ -1254,14 +1257,12 @@ namespace Nop.Web.Controllers
                         {
 
                             //display notification message and update appropriate blocks
+                            MiniShoppingCartModel miniModel = PrepareMiniShoppingCartModel();
+
                             var updatetopcartsectionhtml = string.Format(_localizationService.GetResource("ShoppingCart.HeaderQuantity"),
-                                 _workContext.CurrentCustomer.ShoppingCartItems
-                                 .Where(sci => sci.ShoppingCartType == ShoppingCartType.ShoppingCart)
-                                 .LimitPerStore(_storeContext.CurrentStore.Id)
-                                 .ToList()
-                                 .GetTotalProducts());
+                                 miniModel.TotalProducts);
                             var updateflyoutcartsectionhtml = _shoppingCartSettings.MiniShoppingCartEnabled
-                                ? this.RenderPartialViewToString("FlyoutShoppingCart", PrepareMiniShoppingCartModel())
+                                ? this.RenderPartialViewToString("FlyoutShoppingCart", miniModel)
                                 : "";
 
                             return Json(new
@@ -1269,7 +1270,8 @@ namespace Nop.Web.Controllers
                                 success = true,
                                 message = string.Format(_localizationService.GetResource("Products.ProductHasBeenAddedToTheCart.Link"), Url.RouteUrl("ShoppingCart")),
                                 updatetopcartsectionhtml = updatetopcartsectionhtml,
-                                updateflyoutcartsectionhtml = updateflyoutcartsectionhtml
+                                updateflyoutcartsectionhtml = updateflyoutcartsectionhtml,
+                                cartsubtotal = miniModel.SubTotal
                             });
                         }
                     }
@@ -1467,14 +1469,12 @@ namespace Nop.Web.Controllers
                         {
 
                             //display notification message and update appropriate blocks
+                            MiniShoppingCartModel miniModel = PrepareMiniShoppingCartModel();
+                            
                             var updatetopcartsectionhtml = string.Format(_localizationService.GetResource("ShoppingCart.HeaderQuantity"),
-                                 _workContext.CurrentCustomer.ShoppingCartItems
-                                 .Where(sci => sci.ShoppingCartType == ShoppingCartType.ShoppingCart)
-                                 .LimitPerStore(_storeContext.CurrentStore.Id)
-                                 .ToList()
-                                 .GetTotalProducts());
+                                 miniModel.TotalProducts);                            
                             var updateflyoutcartsectionhtml = _shoppingCartSettings.MiniShoppingCartEnabled
-                                ? this.RenderPartialViewToString("FlyoutShoppingCart", PrepareMiniShoppingCartModel())
+                                ? this.RenderPartialViewToString("FlyoutShoppingCart", miniModel)
                                 : "";
 
                             return Json(new
@@ -1482,7 +1482,8 @@ namespace Nop.Web.Controllers
                                 success = true,
                                 message = string.Format(_localizationService.GetResource("Products.ProductHasBeenAddedToTheCart.Link"), Url.RouteUrl("ShoppingCart")),
                                 updatetopcartsectionhtml = updatetopcartsectionhtml,
-                                updateflyoutcartsectionhtml = updateflyoutcartsectionhtml
+                                updateflyoutcartsectionhtml = updateflyoutcartsectionhtml,
+                                cartsubtotal = miniModel.SubTotal
                             });
                         }
                     }
@@ -1725,6 +1726,38 @@ namespace Nop.Web.Controllers
                 prepareEstimateShippingIfEnabled: false, 
                 prepareAndDisplayOrderReviewData: prepareAndDisplayOrderReviewData.HasValue ? prepareAndDisplayOrderReviewData.Value : false);
             return PartialView(model);
+        }
+
+        [HttpPost]
+        public JsonResult RemoveItemFromCart(int productId)
+        {
+            JsonResponse response = new JsonResponse
+            {
+                success=false,
+                message=""
+            };
+
+            if (!_permissionService.Authorize(StandardPermissionProvider.EnableShoppingCart))
+            {
+                response.message="Unauthorized, shopping cart is disabled";
+            }
+
+            var items = _workContext.CurrentCustomer.ShoppingCartItems
+                .Where(sci => sci.ShoppingCartType == ShoppingCartType.ShoppingCart && sci.ProductId == productId)
+                .LimitPerStore(_storeContext.CurrentStore.Id)
+                .ToList();
+            if (items != null && items.Count == 0)
+            {
+                response.message = string.Format("Product: {0} not found.",productId);
+                return Json(response);
+            }
+                            
+            foreach (var item in items)
+            {
+                _shoppingCartService.DeleteShoppingCartItem(item, ensureOnlyActiveCheckoutAttributes: true);
+            }
+            response.success=true;
+            return Json(response);
         }
 
         [ValidateInput(false)]

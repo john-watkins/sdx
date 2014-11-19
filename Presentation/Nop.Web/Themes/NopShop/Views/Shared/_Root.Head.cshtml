@@ -5,9 +5,10 @@
     EngineContext.Current.Resolve<Nop.Core.Domain.StoreInformationSettings>().DisplayMiniProfilerInPublicStore;
 
     //resources
-    Html.AppendScriptParts("~/Themes/NopShop/Scripts/product-service.js");
-    Html.AppendScriptParts("~/Themes/NopShop/Scripts/main.js");
-    Html.AppendScriptParts("~/Themes/NopShop/Content/side-shopping-cart/js/main.js");
+    Html.AppendScriptParts("~/Themes/NopShop/Scripts/views/shoppingcart-controller.js");
+    Html.AppendScriptParts("~/Themes/NopShop/Scripts/services/shoppingcart-service.js");
+    Html.AppendScriptParts("~/Themes/NopShop/Scripts/services/product-service.js");
+    Html.AppendScriptParts("~/Themes/NopShop/Scripts/main.js");    
     Html.AppendScriptParts("~/Themes/NopShop/Scripts/price-range.js");
     Html.AppendScriptParts("~/Themes/NopShop/Scripts/handlebars-v2.0.0.js");    
     Html.AppendScriptParts("~/Scripts/public.ajaxcart.js");

@@ -4,9 +4,22 @@ a {
 a:hover {
   color: #64aed9;
 }
+.pre-header {
+    background: none repeat scroll 0 0 #0083C9;
+}
+
 .pre-header a:hover {
+    color:#64aed9;
+}
+
+.pre-header .additional-shop-info a:hover, .pre-header .additional-nav a:hover {
   color: #64aed9;
 }
+
+.pre-header .additional-shop-info a, .pre-header .additional-nav a {
+    color: #fff;
+}
+
 .shop-currencies a.current {
   color: #64aed9;
 }
@@ -297,7 +310,7 @@ a:hover {
 .btn-primary:hover,
 .btn-primary:focus,
 .btn-primary:active {
-  background: #64aed9;
+  background: #0083C9;
 }
 
 .header-navigation .dropdown-menu > li:first-child {
