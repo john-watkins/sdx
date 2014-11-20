@@ -7,7 +7,11 @@ $(document).ready(function () {
     Layout.initTouchspin();
     Layout.initUniform();
     $('#sl2').slider();
-
+    $('form.run-form-validation').each(function(){
+        var t = $(this);
+        var id = t.attr("id");
+        $("#"+id).validate();
+    });
     var RGBChange = function () {
         $('#RGB').css('background', 'rgb(' + r.getValue() + ',' + g.getValue() + ',' + b.getValue() + ')')
     };	

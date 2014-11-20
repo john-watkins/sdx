@@ -5969,16 +5969,6 @@
     <Content Include="Themes\NopShop\Content\metronic\assets\global\plugins\zoom\jquery.zoom.min.js" />
     <Content Include="Themes\NopShop\Content\metronic\assets\global\scripts\datatable.js" />
     <Content Include="Themes\NopShop\Content\metronic\assets\global\scripts\metronic.js" />
-    <Content Include="Themes\NopShop\Content\side-shopping-cart\css\reset.css" />
-    <Content Include="Themes\NopShop\Content\side-shopping-cart\css\style.css" />
-    <Content Include="Themes\NopShop\Content\side-shopping-cart\img\cd-cart.svg" />
-    <Content Include="Themes\NopShop\Content\side-shopping-cart\img\cd-hamburger-menu.svg" />
-    <Content Include="Themes\NopShop\Content\side-shopping-cart\img\cd-logo.svg" />
-    <Content Include="Themes\NopShop\Content\side-shopping-cart\img\cd-remove-item.svg" />
-    <Content Include="Themes\NopShop\Content\side-shopping-cart\img\thumb.jpg" />
-    <Content Include="Themes\NopShop\Content\side-shopping-cart\index.html" />
-    <Content Include="Themes\NopShop\Content\side-shopping-cart\js\main.js" />
-    <Content Include="Themes\NopShop\Content\side-shopping-cart\js\modernizr.js" />
     <Content Include="Themes\NopShop\preview.jpg" />
     <Content Include="Themes\NopShop\Scripts\contact.js" />
     <Content Include="Themes\NopShop\Scripts\gmaps.js" />
@@ -6475,13 +6465,6 @@
     <Content Include="Themes\NopShop\Views\Product\ProductTemplate.SimpleMetronic.cshtml" />
     <Content Include="Themes\NopShop\Views\Product\_DisplayQuantityInput.cshtml" />
     <Content Include="Themes\NopShop\Views\Product\_ReviewsJsonTemplate.cshtml" />
-    <Content Include="Themes\NopShop\Content\side-shopping-cart\.DS_Store" />
-    <Content Include="Themes\NopShop\Content\side-shopping-cart\js\.DS_Store" />
-    <Content Include="Themes\NopShop\Content\side-shopping-cart\partials\_layout.scss" />
-    <Content Include="Themes\NopShop\Content\side-shopping-cart\partials\_mixins.scss" />
-    <Content Include="Themes\NopShop\Content\side-shopping-cart\partials\_variables.scss" />
-    <Content Include="Themes\NopShop\Content\side-shopping-cart\readme.pdf" />
-    <Content Include="Themes\NopShop\Content\side-shopping-cart\scss\style.scss" />
     <Content Include="Themes\NopShop\Views\Common\ShoppingCartLink.cshtml" />
     <Content Include="Themes\NopShop\Views\ShoppingCart\NopTronicFlyoutShoppingCart.cshtml" />
   </ItemGroup>

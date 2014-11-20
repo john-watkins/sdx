@@ -35,13 +35,33 @@
         confirmOrderStepNumber--;
     }
 }
-
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <h1>@T("Checkout")</h1>
+        <div class="panel-group checkout-page accordion scrollable" id="checkout-page">
+            <div id="checkout" class="panel panel-default">
+                <div class="panel-heading">
+                    <h2 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#checkout-page" href="#checkout-content" class="accordion-toggle">
+                            Step 1: Checkout Options
+                        </a>
+                    </h2>
+                </div>
+                <div id="checkout-content" class="panel-collapse collapse in">
+                    <div class="panel-body row">
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="container one-page-checkout-page">
     <h2 class="title text-center">@T("Checkout")</h2>
     <div class="custom-page-box-div">
-        
 
-        
+
+
         <div class="opc panel-group" id="checkout-steps">
 
             <div id="opc-billing" class="panel panel-default tab-section allow">
@@ -49,12 +69,12 @@
                     <h2 class=" panel-title">
                         <span class="fa fa-map-marker"></span>
 
-                        
+
                         @T("Checkout.BillingAddress")
                         <span class="pull-right op-number">@billingAddressStepNumber</span>
                     </h2>
                 </div>
-                
+
                 <div id="checkout-step-billing" class="step a-item panel-collapse collapse" style="display: none;">
                     <div class="panel-body">
                         <form id="co-billing-form" action="">
@@ -74,20 +94,20 @@
                             <span class="please-wait" id="billing-please-wait" style="display: none;">@T("Common.LoadingNextStep")</span>
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
             @if (Model.ShippingRequired)
             {
                 <div id="opc-shipping" class="panel panel-default tab-section">
                     <div class="step-title panel-heading">
-                          
-                            <h2 class="panel-title">
-                                <span class="fa fa-map-marker"></span>
-                                @T("Checkout.ShippingAddress")
-                                <span class="pull-right op-number">@shippingAddressStepNumber</span>
-                            </h2>
-                
+
+                        <h2 class="panel-title">
+                            <span class="fa fa-map-marker"></span>
+                            @T("Checkout.ShippingAddress")
+                            <span class="pull-right op-number">@shippingAddressStepNumber</span>
+                        </h2>
+
                     </div>
                     <div id="checkout-step-shipping" class="panel-collapse collapse step a-item" style="display: none;">
                         <div class="panel-body">
@@ -114,53 +134,53 @@
                                         <span id="shipping-please-wait" class="please-wait" style="display: none;"> @T("Common.LoadingNextStep")</span>
                                     </div>
                                 </div>
-                                
-                                
+
+
                             </div>
                         </div>
                     </div>
                 </div>
 
 
-    <div id="opc-shipping_method" class="panel panel-default tab-section">
-        <div class="step-title panel-heading">
-           
-            <h2 class ="panel-title"><span class="fa fa-truck"></span>@T("Checkout.ShippingMethod") <span class="pull-right op-number">@shippingMethodStepNumber</span></h2>
-        </div>
-        <div id="checkout-step-shipping-method" class="panel-collapse collapse step a-item" style="display: none;">
-            <div class="panel-body">
-                <form id="co-shipping-method-form" action="">
-                    <div id="checkout-shipping-method-load" >
-                        @*shipping methods content will be loaded here*@
+                <div id="opc-shipping_method" class="panel panel-default tab-section">
+                    <div class="step-title panel-heading">
+
+                        <h2 class="panel-title"><span class="fa fa-truck"></span>@T("Checkout.ShippingMethod") <span class="pull-right op-number">@shippingMethodStepNumber</span></h2>
                     </div>
-                    <script type="text/javascript">
-                        ShippingMethod.init('#co-shipping-method-form', '@(storeLocation)checkout/OpcSaveShippingMethod/');
-                    </script>
+                    <div id="checkout-step-shipping-method" class="panel-collapse collapse step a-item" style="display: none;">
+                        <div class="panel-body">
+                            <form id="co-shipping-method-form" action="">
+                                <div id="checkout-shipping-method-load">
+                                    @*shipping methods content will be loaded here*@
+                                </div>
+                                <script type="text/javascript">
+                                    ShippingMethod.init('#co-shipping-method-form', '@(storeLocation)checkout/OpcSaveShippingMethod/');
+                                </script>
 
-                    <div class="buttons" id="shipping-method-buttons-container">
-                        
-                        <div class="row">
-                            <div class="col-md-3 pull-left">
-                                <p class="back-link">
-                                    <a class="btn btn-primary" href="#" onclick="Checkout.back(); return false;"><small>&laquo; </small>@T("Common.Back")</a>
-                                </p>
-                            </div>
-                            <div class="col-md-3 pull-right pull-text-right">
-                                <input type="button" class="btn btn-primary button-1 shipping-method-next-step-button" title="@T("Common.Continue")" onclick="ShippingMethod.save()" value="@T("Common.Continue")" />
-                                <span id="shipping-method-please-wait" class="please-wait" style="display: none;"> @T("Common.LoadingNextStep")</span>
-                            </div>
+                                <div class="buttons" id="shipping-method-buttons-container">
+
+                                    <div class="row">
+                                        <div class="col-md-3 pull-left">
+                                            <p class="back-link">
+                                                <a class="btn btn-primary" href="#" onclick="Checkout.back(); return false;"><small>&laquo; </small>@T("Common.Back")</a>
+                                            </p>
+                                        </div>
+                                        <div class="col-md-3 pull-right pull-text-right">
+                                            <input type="button" class="btn btn-primary button-1 shipping-method-next-step-button" title="@T("Common.Continue")" onclick="ShippingMethod.save()" value="@T("Common.Continue")" />
+                                            <span id="shipping-method-please-wait" class="please-wait" style="display: none;"> @T("Common.LoadingNextStep")</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </form>
                         </div>
-
-                       </div>
-                </form>
-            </div>
-        </div>
-    </div>
+                    </div>
+                </div>
             }
-            
+
             <div id="opc-payment_method" class="panel panel-default tab-section">
                 <div class="step-title panel-heading">
-                    
+
                     <h2 class="panel-title"><span class="fa fa-credit-card"></span>@T("Checkout.PaymentMethod")<span class="pull-right op-number">@paymentMethodStepNumber</span></h2>
                 </div>
 
@@ -194,10 +214,10 @@
             </div>
             <div id="opc-payment_info" class="panel panel-default tab-section">
                 <div class="step-title panel-heading">
-                    
-                    
-                    <h2 class ="panel-title"><span class="fa fa-info-circle"></span> @T("Checkout.PaymentInfo")<span class="pull-right op-number">@paymentInfoStepNumber</span></h2>
-            </div>
+
+
+                    <h2 class="panel-title"><span class="fa fa-info-circle"></span> @T("Checkout.PaymentInfo")<span class="pull-right op-number">@paymentInfoStepNumber</span></h2>
+                </div>
 
                 <div id="checkout-step-payment-info" class="panel-collapse collapse  step a-item" style="display: none;">
                     <div class="panel-body">
@@ -225,18 +245,18 @@
 
 
                         </div>
-                        </div>
                     </div>
+                </div>
             </div>
             <div id="opc-confirm_order" class="panel panel-default tab-section">
                 <div class="step-title panel-heading">
-                    
+
                     <h2 class="panel-title">
                         <span class="fa fa-check"></span> @T("Checkout.ConfirmOrder")<span class="pull-right op-number">@confirmOrderStepNumber</span>
                     </h2>
                 </div>
                 <div id="checkout-step-confirm-order" class="panel-collapse collapse step a-item" style="display: none;">
-                    
+
                     <div class="panel-body">
                         <div id="checkout-confirm-order-load">
                             $1$confirm order content will be loaded here#1#
@@ -269,7 +289,7 @@
 
 
 
-        
+
         <script type="text/javascript">
             Accordion.init('checkout-steps', '.step-title', true);
             Accordion.openSection('#opc-billing');
@@ -282,7 +302,3 @@
         </script>
     </div>
 </div>
-
-
-
-        
