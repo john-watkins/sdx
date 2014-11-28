@@ -47,7 +47,7 @@
     <div class="product-box">
         <div class="product-item">
             <div class="pi-img-wrapper">
-                <img alt="@Model.DefaultPictureModel.AlternateText" class="img-responsive" src="@Model.DefaultPictureModel.ImageUrl" title="@Model.DefaultPictureModel.Title" />
+                <img alt="@Model.DefaultPictureModel.AlternateText" class="img-responsive centered" src="@Model.DefaultPictureModel.ImageUrl" title="@Model.DefaultPictureModel.Title" />
                 <div>
                     <a href="@Model.DefaultPictureModel.FullSizeImageUrl" class="btn btn-default fancybox-button">Zoom</a>
                     <a href="@Url.RouteUrl("Product", new{SeName = Model.SeName})" class="btn btn-default fancybox-fast-view">View</a>
@@ -62,65 +62,3 @@
         </div>
     </div>
 </div>
-<!-- PRODUCT ITEM END -->
-@*@if (Model.ReviewOverviewModel.AllowCustomerReviews)
-    {
-
-        double ratingNumber = 0;
-        int fullStar = 0;
-        double fractionNumber = 0;
-        int fractionStar = 0;
-        int emptyStar = 0;
-
-        if (Model.ReviewOverviewModel.TotalReviews != 0)
-        {
-            ratingNumber = ((Model.ReviewOverviewModel.RatingSum * 100.0) / Model.ReviewOverviewModel.TotalReviews) / 100.0;
-        }
-        fullStar = (int)ratingNumber;
-        fractionNumber = ratingNumber - fullStar;
-
-        if (fractionNumber > 0.75)
-        {
-            fullStar++;
-        }
-        else if (fractionNumber > 0.25 && fractionStar < 0.75)
-        {
-            fractionStar++;
-        }
-        else if (fractionNumber > 0 && fractionNumber < 0.25)
-        {
-            emptyStar++;
-        }
-
-        emptyStar += (5 - fullStar - fractionStar);
-
-        <div class="rating-div show-on-list">
-
-
-            @for (int i = 0; i < fullStar; i++)
-            {
-                <i class="fa fa-star"></i>
-
-            }
-            @for (int i = 0; i < fractionStar; i++)
-            {
-                <i class="fa fa-star-half-full"></i>
-
-            }
-            @for (int i = 0; i < emptyStar; i++)
-            {
-                <i class="fa fa-star-o"></i>
-
-            }
-        </div>
-    }*@
-
-
-
-
-
-
-
-
-
-

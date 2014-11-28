@@ -119,12 +119,12 @@
                             if (pictureSize == pictureDefaultSizePrefix)
                             {
                                 pictureUrl = pvaValue.PictureUrl;
-                            } 
+                            }
                             else if (pictureSize == pictureFullSizePrefix)
                             {
                                 pictureUrl = pvaValue.FullSizePictureUrl;
                             }
-                            
+
                             pictureAdjustmentTableScripts.AppendFormat(CultureInfo.InvariantCulture, "'{0}',", pictureUrl);
                             numberOfJsArrayItems++;
                         }
@@ -193,251 +193,254 @@
     //dynamic price update support
     if (dynamicPriceUpdate && !hidePrices)
     {
-    <script type="text/javascript">
-        //Price adjustment table
-        var @(priceAdjustmentTableName) = new Array();
-        //Price adjustment table initialize
-        @Html.Raw(priceAdjustmentTableScripts.ToString())
-        //Price adjustment function
-        function @(priceAdjustmentFuncName)() {
-            var sum = 0;
-            for(var i in @(priceAdjustmentTableName)) {
-                var ctrl = $('#' + i);
-                if((ctrl.is(':radio') && ctrl.is(':checked')) || (ctrl.is(':checkbox') && ctrl.is(':checked'))) {
-                    sum += @(priceAdjustmentTableName)[i];
-                }
-                else if(ctrl.is('select')) {
-                    var idx = $('#' + i + " option").index($('#' + i + " option:selected"));
-                    if(idx != -1) {
-                        sum += @(priceAdjustmentTableName)[i][idx];
+        <script type="text/javascript">
+            //Price adjustment table
+            var @(priceAdjustmentTableName) = new Array();
+            //Price adjustment table initialize
+            @Html.Raw(priceAdjustmentTableScripts.ToString())
+            //Price adjustment function
+            function @(priceAdjustmentFuncName)() {
+                var sum = 0;
+                for(var i in @(priceAdjustmentTableName)) {
+                    var ctrl = $('#' + i);
+                    if((ctrl.is(':radio') && ctrl.is(':checked')) || (ctrl.is(':checkbox') && ctrl.is(':checked'))) {
+                        sum += @(priceAdjustmentTableName)[i];
+                    }
+                    else if(ctrl.is('select')) {
+                        var idx = $('#' + i + " option").index($('#' + i + " option:selected"));
+                        if(idx != -1) {
+                            sum += @(priceAdjustmentTableName)[i][idx];
+                        }
                     }
                 }
-        }
-        var res = (@(priceVarName) + sum).toFixed(2);
-            $(".@(priceVarClass)").text(res);
-        }
-        //Price attributes handlers
-        $(document).ready(function() {
-            @(priceAdjustmentFuncName)();
-            @Html.Raw(priceAttributeScripts.ToString())
-        });
-    </script>
+                var res = (@(priceVarName) + sum).toFixed(2);
+                $(".@(priceVarClass)").text(res);
+            }
+            //Price attributes handlers
+            $(document).ready(function() {
+                @(priceAdjustmentFuncName)();
+                @Html.Raw(priceAttributeScripts.ToString())
+            });
+        </script>
     }
     //attribute picture update
     if (!String.IsNullOrEmpty(pictureAttributeScripts.ToString()))
     {
-    <script type="text/javascript">
-            
-        //Picture adjustment table
-        var @(pictureAdjustmentTableName) = new Array();
-        //Picture adjustment table initialize
-        @Html.Raw(pictureAdjustmentTableScripts.ToString())
-        //Picture adjustment function
-        function @(pictureAdjustmentFuncName)(controlId, productId) {
-            var ctrl = $('#' + controlId);
-            var pictureDefaultSizeUrl = '';
-            var pictureFullSizeUrl = '';
-            if((ctrl.is(':radio') && ctrl.is(':checked')) || (ctrl.is(':checkbox') && ctrl.is(':checked'))) {
-                pictureDefaultSizeUrl = @(pictureAdjustmentTableName)[controlId + '_@(pictureDefaultSizePrefix)'];
-                pictureFullSizeUrl = @(pictureAdjustmentTableName)[controlId + '_@(pictureFullSizePrefix)'];
-            } else if(ctrl.is('select')) {
-                var idx = $('#' + controlId + " option").index($('#' + controlId + " option:selected"));
-                if(idx != -1) {
-                    pictureDefaultSizeUrl = @(pictureAdjustmentTableName)[controlId + '_@(pictureDefaultSizePrefix)'][idx];
-                    pictureFullSizeUrl = @(pictureAdjustmentTableName)[controlId + '_@(pictureFullSizePrefix)'][idx];
+        <script type="text/javascript">
+
+            //Picture adjustment table
+            var @(pictureAdjustmentTableName) = new Array();
+            //Picture adjustment table initialize
+            @Html.Raw(pictureAdjustmentTableScripts.ToString())
+            //Picture adjustment function
+            function @(pictureAdjustmentFuncName)(controlId, productId) {
+                var ctrl = $('#' + controlId);
+                var pictureDefaultSizeUrl = '';
+                var pictureFullSizeUrl = '';
+                if((ctrl.is(':radio') && ctrl.is(':checked')) || (ctrl.is(':checkbox') && ctrl.is(':checked'))) {
+                    pictureDefaultSizeUrl = @(pictureAdjustmentTableName)[controlId + '_@(pictureDefaultSizePrefix)'];
+                    pictureFullSizeUrl = @(pictureAdjustmentTableName)[controlId + '_@(pictureFullSizePrefix)'];
+                } else if(ctrl.is('select')) {
+                    var idx = $('#' + controlId + " option").index($('#' + controlId + " option:selected"));
+                    if(idx != -1) {
+                        pictureDefaultSizeUrl = @(pictureAdjustmentTableName)[controlId + '_@(pictureDefaultSizePrefix)'][idx];
+                        pictureFullSizeUrl = @(pictureAdjustmentTableName)[controlId + '_@(pictureFullSizePrefix)'][idx];
+                    }
+                }else{
+
+                }
+                if (typeof pictureDefaultSizeUrl == 'string' && pictureDefaultSizeUrl != '') {
+                    var ele = $('#main-product-img-' + productId);
+                    ele.attr("src", pictureDefaultSizeUrl).attr("data-bigimgsrc",pictureFullSizeUrl);
+                    $('.product-main-image').trigger('zoom.destroy');
+                    Layout.initImageZoom();
+                }
+                if (typeof pictureFullSizeUrl == 'string' && pictureFullSizeUrl != '') {
+                    $('#main-product-img-lightbox-anchor-' + productId).attr("href", pictureFullSizeUrl);
                 }
             }
-            if (typeof pictureDefaultSizeUrl == 'string' && pictureDefaultSizeUrl != '') {
-                $('#main-product-img-' + productId).attr("src", pictureDefaultSizeUrl);
-            }
-            if (typeof pictureFullSizeUrl == 'string' && pictureFullSizeUrl != '') {
-                $('#main-product-img-lightbox-anchor-' + productId).attr("href", pictureFullSizeUrl);
-            }
-        }
-        // Picture attributes handlers
-        $(document).ready(function() {
-            @Html.Raw(pictureAttributeScripts.ToString())
-        });
-    </script>
+            // Picture attributes handlers
+            $(document).ready(function() {
+                @Html.Raw(pictureAttributeScripts.ToString())
+            });
+        </script>
     }
-    <div class="attributes">
-      
-        @foreach (var attribute in Model)
-        {
-            string controlId = string.Format("product_attribute_{0}_{1}_{2}", attribute.ProductId, attribute.ProductAttributeId, attribute.Id);
-            string textPrompt = !string.IsNullOrEmpty(attribute.TextPrompt) ? attribute.TextPrompt : attribute.Name;
-            <dl class="row">
-                <dt class="col-md-4">
-                    <label class="text-prompt">
-                        @textPrompt
-                    </label>
+
+    foreach (var attribute in Model)
+    {
+        string controlId = string.Format("product_attribute_{0}_{1}_{2}", attribute.ProductId, attribute.ProductAttributeId, attribute.Id);
+        string textPrompt = !string.IsNullOrEmpty(attribute.TextPrompt) ? attribute.TextPrompt : attribute.Name;
+        
+            <div class="pull-left">
+                <label class="control-label">
+                    @textPrompt
                     @if (attribute.IsRequired)
                     {
                         <span class="required">*</span>
                     }
-                    @if (!string.IsNullOrEmpty(attribute.Description))
-                    {
-                        <div class="attribute-description alert alert-info square-box">
-                            @Html.Raw(attribute.Description)
-                        </div>
-                    }
-                </dt>
-                <dd class="col-md-8">
-                    
-                    @switch (attribute.AttributeControlType)
-                    {
-                        case AttributeControlType.DropdownList:
-                            {
-                                <select name="@(controlId)" id="@(controlId)" class="my-username">
-                                    @if (!attribute.IsRequired)
-                                    {
-                                        <option value="0">---</option>
-                                    }
-                                    @foreach (var pvaValue in attribute.Values)
-                                    {
-                                        <option selected="@pvaValue.IsPreSelected" value="@pvaValue.Id">@pvaValue.Name
-                                            @(!String.IsNullOrEmpty(pvaValue.PriceAdjustment) ? " [" + pvaValue.PriceAdjustment + "]" : null)
-                                        </option>
-                                    }
-                                </select>
-                            }
-                            break;
-                        case AttributeControlType.RadioList:
-                            {
-                                <ul class="option-list">
-                                    @foreach (var pvaValue in attribute.Values)
-                                    {
-                                        <li>
-                                            <input id="@(controlId)_@(pvaValue.Id)" type="radio" name="@(controlId)" value="@pvaValue.Id" checked="@pvaValue.IsPreSelected" />
-                                            <label for="@(controlId)_@(pvaValue.Id)">@pvaValue.Name @(!String.IsNullOrEmpty(pvaValue.PriceAdjustment) ? " [" + pvaValue.PriceAdjustment + "]" : null)</label>
-                                        </li>
-                                    }
-                                </ul>
-                            }
-                            break;
-                        case AttributeControlType.Checkboxes:
-                            {
-                                <ul class="option-list">
-                                    @foreach (var pvaValue in attribute.Values)
-                                    {                                    
-                                        <li>
-                                            <input id="@(controlId)_@(pvaValue.Id)" type="checkbox" name="@(controlId)" value="@pvaValue.Id" checked="@pvaValue.IsPreSelected" />
-                                            <label for="@(controlId)_@(pvaValue.Id)">@pvaValue.Name @(!String.IsNullOrEmpty(pvaValue.PriceAdjustment) ? " [" + pvaValue.PriceAdjustment + "]" : null)</label>
-                                        </li>
-                                    }
-                                </ul>
-                            }
-                            break;
-                        case AttributeControlType.TextBox:
-                            {
-                                <input name="@(controlId)" type="text" class="textbox " id="@(controlId)" value="@attribute.DefaultValue" />
-                            }
-                            break;
-                        case AttributeControlType.MultilineTextbox:
-                            {
-                                <textarea class="" cols="20" id="@(controlId)" name="@(controlId)">@attribute.DefaultValue</textarea>
-                            }
-                            break;
-                        case AttributeControlType.Datepicker:
-                            {
-                                @Html.DatePickerDropDowns(controlId + "_day", controlId + "_month", controlId + "_year", DateTime.Now.Year, DateTime.Now.Year + 1, attribute.SelectedDay, attribute.SelectedMonth, attribute.SelectedYear)
-                            }
-                            break;
-                        case AttributeControlType.FileUpload:
-                            {
-                                //register CSS and JS
-                                Html.AddCssFileParts("~/Scripts/fineuploader/fineuploader-4.2.2.min.css");
-                                Html.AddScriptParts("~/Scripts/fineuploader/jquery.fineuploader-4.2.2.min.js");
+                </label>
+                
+                @if (!string.IsNullOrEmpty(attribute.Description))
+                {
+                    <div class="attribute-description alert alert-info square-box">
+                        @Html.Raw(attribute.Description)
+                    </div>
+                }
 
-                                //ex. ['jpg', 'jpeg', 'png', 'gif'] or []
-                                var allowedFileExtensions = string.Join(", ", attribute.AllowedFileExtensions.Select(x => "'" + x.Trim() + "'").ToList());
-                            
-                        <input id="@(controlId)" name="@(controlId)" type="hidden" />
-                        @*fine uploader container*@
-                        <div id="@(controlId)uploader"></div>
-                        @*fine uploader template (keep it synchronized to \Content\fineuploader\templates\default.html)*@
-                        <script type="text/template" id="@(controlId)-qq-template">
-                            <div class="qq-uploader-selector qq-uploader">
-                                <div class="qq-upload-drop-area-selector qq-upload-drop-area" qq-hide-dropzone>
-                                    <span>@T("Common.FileUploader.DropFiles")</span>
-                                </div>
-                                <div class="qq-upload-button-selector qq-upload-button">
-                                    <div>@T("Common.FileUploader.Upload")</div>
-                                </div>
-                                <span class="qq-drop-processing-selector qq-drop-processing">
-                                    <span>@T("Common.FileUploader.Processing")</span>
-                                    <span class="qq-drop-processing-spinner-selector qq-drop-processing-spinner"></span>
-                                </span>
-                                <ul class="qq-upload-list-selector qq-upload-list">
+                @switch (attribute.AttributeControlType)
+                {
+                    case AttributeControlType.DropdownList:
+                        {
+                            <select name="@(controlId)" id="@(controlId)" class="form-control input-sm">
+                                @if (!attribute.IsRequired)
+                                {
+                                    <option value="0">---</option>
+                                }
+                                @foreach (var pvaValue in attribute.Values)
+                                {
+                                    <option selected="@pvaValue.IsPreSelected" value="@pvaValue.Id">
+                                        @pvaValue.Name
+                                        @(!String.IsNullOrEmpty(pvaValue.PriceAdjustment) ? " [" + pvaValue.PriceAdjustment + "]" : null)
+                                    </option>
+                                }
+                            </select>
+                        }
+                        break;
+                    case AttributeControlType.RadioList:
+                        {
+                            <ul class="option-list">
+                                @foreach (var pvaValue in attribute.Values)
+                                {
                                     <li>
-                                        <div class="qq-progress-bar-container-selector">
-                                            <div class="qq-progress-bar-selector qq-progress-bar"></div>
-                                        </div>
-                                        <span class="qq-upload-spinner-selector qq-upload-spinner"></span>
-                                        <span class="qq-edit-filename-icon-selector qq-edit-filename-icon"></span>
-                                        <span class="qq-upload-file-selector qq-upload-file"></span>
-                                        <input class="qq-edit-filename-selector qq-edit-filename" tabindex="0" type="text">
-                                        <span class="qq-upload-size-selector qq-upload-size"></span>
-                                        <a class="qq-upload-cancel-selector qq-upload-cancel" href="#">@T("Common.FileUploader.Cancel")</a>
-                                        <a class="qq-upload-retry-selector qq-upload-retry" href="#">@T("Common.FileUploader.Retry")</a>
-                                        <a class="qq-upload-delete-selector qq-upload-delete" href="#">@T("Common.FileUploader.Delete")</a>
-                                        <span class="qq-upload-status-text-selector qq-upload-status-text"></span>
+                                        <input id="@(controlId)_@(pvaValue.Id)" type="radio" name="@(controlId)" value="@pvaValue.Id" checked="@pvaValue.IsPreSelected" class="form-control" />
+                                        <label class="control-label" for="@(controlId)_@(pvaValue.Id)">@pvaValue.Name @(!String.IsNullOrEmpty(pvaValue.PriceAdjustment) ? " [" + pvaValue.PriceAdjustment + "]" : null)</label>
                                     </li>
-                                </ul>
-                            </div>
-                        </script>
-                        <script type="text/javascript">
-                            $(document).ready(function() {
-                                $("#@(controlId)uploader").fineUploader({
-                                    request: {
-                                        endpoint: '@(Url.RouteUrl("UploadFileProductAttribute", new { attributeId = attribute.Id }))'
-                                    },
-                                    template: "@(controlId)-qq-template",
-                                    multiple: false,
-                                    validation: {
-                                        allowedExtensions: [@Html.Raw(allowedFileExtensions)]
-                                    }
-                                }).on("complete", function(event, id, name, responseJSON, xhr) {
-                                    $("#@(controlId)").val(responseJSON.downloadGuid);
-                                    if (responseJSON.message) {
-                                        alert(responseJSON.message);
-                                    }
-                                });
-                            });
-                        </script>
-                    
-                            }
-                            break;
-                        case AttributeControlType.ColorSquares:
-                            {
-                                <ul class="option-list color-squares" id="color-squares-@(attribute.Id)">
-                                    @foreach (var pvaValue in attribute.Values)
-                                    {
-                                        <li @(pvaValue.IsPreSelected ? @Html.Raw(" class=\"selected-value\"") : null)>
-                                            <label for="@(controlId)_@(pvaValue.Id)">
-                                                <span class="color-container" title="@pvaValue.Name @(!String.IsNullOrEmpty(pvaValue.PriceAdjustment) ? " [" + pvaValue.PriceAdjustment + "]" : null)">
-                                                    <span class="color" style="background-color:@(pvaValue.ColorSquaresRgb);">&nbsp;</span>
-                                                </span>
-                                                <input id="@(controlId)_@(pvaValue.Id)" type="radio" name="@(controlId)" value="@pvaValue.Id" checked="@pvaValue.IsPreSelected" />
-                                                @*uncomment below to display attribute value name*@
-                                                @*<span class="name">@pvaValue.Name @(!String.IsNullOrEmpty(pvaValue.PriceAdjustment) ? " [" + pvaValue.PriceAdjustment + "]" : null)</span>*@
-                                            </label>
+                                }
+                            </ul>
+                        }
+                        break;
+                    case AttributeControlType.Checkboxes:
+                        {
+                            <ul class="option-list">
+                                @foreach (var pvaValue in attribute.Values)
+                                {
+                                    <li>
+                                        <input id="@(controlId)_@(pvaValue.Id)" type="checkbox" name="@(controlId)" value="@pvaValue.Id" checked="@pvaValue.IsPreSelected" class="form-control" />
+                                        <label class="control-label" for="@(controlId)_@(pvaValue.Id)">@pvaValue.Name @(!String.IsNullOrEmpty(pvaValue.PriceAdjustment) ? " [" + pvaValue.PriceAdjustment + "]" : null)</label>
+                                    </li>
+                                }
+                            </ul>
+                        }
+                        break;
+                    case AttributeControlType.TextBox:
+                        {
+                            <input name="@(controlId)" type="text" class="textbox form-control" id="@(controlId)" value="@attribute.DefaultValue" />
+                        }
+                        break;
+                    case AttributeControlType.MultilineTextbox:
+                        {
+                            <textarea class="form-control" cols="20" id="@(controlId)" name="@(controlId)">@attribute.DefaultValue</textarea>
+                        }
+                        break;
+                    case AttributeControlType.Datepicker:
+                        {
+                            @Html.DatePickerDropDowns(controlId + "_day", controlId + "_month", controlId + "_year", DateTime.Now.Year, DateTime.Now.Year + 1, attribute.SelectedDay, attribute.SelectedMonth, attribute.SelectedYear)
+                        }
+                        break;
+                    case AttributeControlType.FileUpload:
+                        {
+                            //register CSS and JS
+                            Html.AddCssFileParts("~/Scripts/fineuploader/fineuploader-4.2.2.min.css");
+                            Html.AddScriptParts("~/Scripts/fineuploader/jquery.fineuploader-4.2.2.min.js");
+
+                            //ex. ['jpg', 'jpeg', 'png', 'gif'] or []
+                            var allowedFileExtensions = string.Join(", ", attribute.AllowedFileExtensions.Select(x => "'" + x.Trim() + "'").ToList());
+
+                            <input id="@(controlId)" name="@(controlId)" type="hidden" />
+                            @*fine uploader container*@
+                            <div id="@(controlId)uploader"></div>
+                            @*fine uploader template (keep it synchronized to \Content\fineuploader\templates\default.html)*@
+                            <script type="text/template" id="@(controlId)-qq-template">
+                                <div class="qq-uploader-selector qq-uploader">
+                                    <div class="qq-upload-drop-area-selector qq-upload-drop-area" qq-hide-dropzone>
+                                        <span>@T("Common.FileUploader.DropFiles")</span>
+                                    </div>
+                                    <div class="qq-upload-button-selector qq-upload-button">
+                                        <div>@T("Common.FileUploader.Upload")</div>
+                                    </div>
+                                    <span class="qq-drop-processing-selector qq-drop-processing">
+                                        <span>@T("Common.FileUploader.Processing")</span>
+                                        <span class="qq-drop-processing-spinner-selector qq-drop-processing-spinner"></span>
+                                    </span>
+                                    <ul class="qq-upload-list-selector qq-upload-list">
+                                        <li>
+                                            <div class="qq-progress-bar-container-selector">
+                                                <div class="qq-progress-bar-selector qq-progress-bar"></div>
+                                            </div>
+                                            <span class="qq-upload-spinner-selector qq-upload-spinner"></span>
+                                            <span class="qq-edit-filename-icon-selector qq-edit-filename-icon"></span>
+                                            <span class="qq-upload-file-selector qq-upload-file"></span>
+                                            <input class="qq-edit-filename-selector qq-edit-filename" tabindex="0" type="text">
+                                            <span class="qq-upload-size-selector qq-upload-size"></span>
+                                            <a class="qq-upload-cancel-selector qq-upload-cancel" href="#">@T("Common.FileUploader.Cancel")</a>
+                                            <a class="qq-upload-retry-selector qq-upload-retry" href="#">@T("Common.FileUploader.Retry")</a>
+                                            <a class="qq-upload-delete-selector qq-upload-delete" href="#">@T("Common.FileUploader.Delete")</a>
+                                            <span class="qq-upload-status-text-selector qq-upload-status-text"></span>
                                         </li>
-                                    }
-                                </ul>
-                                <script type="text/javascript">
-                                    $(document).ready(function() {
-                                        $('.attributes #color-squares-@(attribute.Id)').delegate('input', 'click', function(event) {
-                                            $('.attributes #color-squares-@(attribute.Id)').find('li').removeClass('selected-value');
-                                            $(this).closest('li').addClass('selected-value');
-                                        });
+                                    </ul>
+                                </div>
+                            </script>
+                            <script type="text/javascript">
+                                $(document).ready(function() {
+                                    $("#@(controlId)uploader").fineUploader({
+                                        request: {
+                                            endpoint: '@(Url.RouteUrl("UploadFileProductAttribute", new { attributeId = attribute.Id }))'
+                                        },
+                                        template: "@(controlId)-qq-template",
+                                        multiple: false,
+                                        validation: {
+                                            allowedExtensions: [@Html.Raw(allowedFileExtensions)]
+                                        }
+                                    }).on("complete", function(event, id, name, responseJSON, xhr) {
+                                        $("#@(controlId)").val(responseJSON.downloadGuid);
+                                        if (responseJSON.message) {
+                                            alert(responseJSON.message);
+                                        }
                                     });
-                                </script>
-                            }
-                            break;
-                    }
-                </dd>   </dl>
-        }
-     
-    </div>
+                                });
+                            </script>
+
+                        }
+                        break;
+                    case AttributeControlType.ColorSquares:
+                        {
+                            <ul class="option-list color-squares" id="color-squares-@(attribute.Id)">
+                                @foreach (var pvaValue in attribute.Values)
+                                {
+                                    <li @(pvaValue.IsPreSelected ? @Html.Raw(" class=\"selected-value\"") : null)>
+                                        <label for="@(controlId)_@(pvaValue.Id)">
+                                            <span class="color-container" title="@pvaValue.Name @(!String.IsNullOrEmpty(pvaValue.PriceAdjustment) ? " [" + pvaValue.PriceAdjustment + "]" : null)">
+                                                <span class="color" style="background-color:@(pvaValue.ColorSquaresRgb);">&nbsp;</span>
+                                            </span>
+                                            <input id="@(controlId)_@(pvaValue.Id)" type="radio" name="@(controlId)" value="@pvaValue.Id" checked="@pvaValue.IsPreSelected" />
+                                            @*uncomment below to display attribute value name*@
+                                            @*<span class="name">@pvaValue.Name @(!String.IsNullOrEmpty(pvaValue.PriceAdjustment) ? " [" + pvaValue.PriceAdjustment + "]" : null)</span>*@
+                                        </label>
+                                    </li>
+                                }
+                            </ul>
+                            <script type="text/javascript">
+                                $(document).ready(function() {
+                                    $('.attributes #color-squares-@(attribute.Id)').delegate('input', 'click', function(event) {
+                                        $('.attributes #color-squares-@(attribute.Id)').find('li').removeClass('selected-value');
+                                        $(this).closest('li').addClass('selected-value');
+                                    });
+                                });
+                            </script>
+                        }
+                        break;
+                }
+            </div>
+        
+    }
 }

@@ -33,25 +33,19 @@
 @Html.Action("HomepageProducts", "Product")
 
 <div class="row">
-    <div class="col-lg-3 col-md-4 col-sm-4 hidden-xs">
-        <div class="left-sidebar">
-            @if (IsSectionDefined("left"))
+    <div class="col-md-12 sale-product">        
+            @*@if (IsSectionDefined("left"))
             {
                 @RenderSection("left")
             }
             else
-            {
-                @Html.Action("RecentlyViewedProductsBlock", "Product", new { productThumbPictureSize = 32 })
+            {*@
+                @Html.Action("RecentlyViewedProductsBlock", "Product", new { productThumbPictureSize = 128, preparePriceModel = true })
                 @Html.Action("PopularProductTags", "Catalog")
                 @Html.Action("PollBlock", "Poll", new { systemKeyword = "LeftColumnPoll" })
-            }
-        </div>
-
-    </div>
-    <div class="col-lg-9 col-md-8 col-sm-8 col-xs-12 padding-right">
-        @Html.Widget("main_column_before")
-        @RenderBody()
-        @Html.Widget("main_column_after")
-    </div>
-
+            @*}*@
+    </div>            
+</div>
+<div class="row">
+    @RenderBody()
 </div>

@@ -4,6 +4,7 @@ $(document).ready(function () {
     Layout.init();
     Layout.initTwitter();
     Layout.initImageZoom();
+    Layout.initOWL();
     Layout.initTouchspin();
     Layout.initUniform();
     $('#sl2').slider();
@@ -14,7 +15,11 @@ $(document).ready(function () {
     });
     var RGBChange = function () {
         $('#RGB').css('background', 'rgb(' + r.getValue() + ',' + g.getValue() + ',' + b.getValue() + ')')
-    };	
+    };
+    $(".search-btn").click(function () {
+        $("#small-searchterms").focus();
+    });
+    
 });
 
 var NopTronic = function () {

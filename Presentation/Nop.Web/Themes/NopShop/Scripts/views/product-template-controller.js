@@ -61,6 +61,15 @@ var ProductTemplateController = function() {
         NopTronic.scrollTo(ele2, 60);
     }
 
+    var hadleVariantImgClick = function (ele) {        
+        var productId = ele.data("productid");
+        var fullSizeImgUrl = ele.data("bigimgsrc");
+        var imgUrl = ele.attr("src");
+        $("#main-product-img-" + productId).attr("src", imgUrl).attr("data-bigimgsrc", fullSizeImgUrl)        
+        $('.product-main-image').trigger('zoom.destroy');
+        Layout.initImageZoom();
+    }
+
     return {
         init: function () {
             handleInit(); 
@@ -73,29 +82,9 @@ var ProductTemplateController = function() {
         },
         addReviewClick: function () {
             handleAddReviewClick();
+        },
+        variantImgClick: function (ele) {
+            hadleVariantImgClick($(ele));
         }
     };
 }();
-
-
-//init: function(){
-//    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-//        var target = $(e.target).attr("href") // activated tab            
-//        if (target == "Reviews") {
-//            var productId = $(this).data("productid");
-//            _this.loadReviews(productId);
-//        }
-//    });
-//},
-//loadReviews: function (productId) {        
-//    ProductService.getProductReviews(productId)
-//    .done(function (data)
-//    {
-//        var html = _reviewsTemplate(data);
-//        $("#reviews_placeholder").html(html);
-//    })
-//    .fail(function(data){
-            
-//    });
-//}
-//};

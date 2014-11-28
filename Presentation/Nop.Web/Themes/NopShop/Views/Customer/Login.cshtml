@@ -22,33 +22,6 @@
     <div class="portlet light">
         <div class="portlet-title">
             <div class="caption uppercase">
-                <span class="uppercase">@T("Account.Login.NewCustomer")</span>
-            </div>
-        </div>
-        <div class="portlet-body">
-            <h5>@T("Account.Login.NewCustomerText")</h5>
-            @if (Model.CheckoutAsGuest)
-            {
-                @T("Account.Login.CheckoutAsGuestOrRegister")
-                @Html.Action("TopicBlock", "Topic", new { systemName = "CheckoutAsGuestOrRegister" })
-                <div class="padding-top-20">
-                    <input type="button" class="btn btn-primary" onclick="location.href='@Url.RouteUrl("Checkout")'" value="@T("Account.Login.CheckoutAsGuest")" />
-                    <input type="button" class="btn btn-primary" onclick="location.href='@registerUrl'" value="@T("Account.Register")" />
-                </div>
-            }
-            else
-            {
-                <div class="padding-top-20">
-                    <input type="button" class="btn btn-primary " onclick="location.href='@registerUrl'" value="@T("Account.Register")" />
-                </div>
-            }
-        </div>
-    </div>
-</div>
-<div class="col-md-6 col-sm-6">
-    <div class="portlet light">
-        <div class="portlet-title">
-            <div class="caption uppercase">
                 <span class="uppercase">@T("Account.Login.ReturningCustomer")</span>
             </div>
         </div>
@@ -94,6 +67,36 @@
                     </ul>
                 </div>
             </form>
+        </div>
+    </div>
+</div>
+<div class="col-md-6 col-sm-6">
+    <div class="portlet light">
+        <div class="portlet-title">
+            <div class="caption uppercase">
+                <span class="uppercase">@T("Account.Login.NewCustomer")</span>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <br />
+            <h4>@T("Account.Login.NewCustomerText")</h4>
+            @if (Model.CheckoutAsGuest)
+            {
+                @T("Account.Login.CheckoutAsGuestOrRegister")
+                @Html.Action("TopicBlock", "Topic", new { systemName = "CheckoutAsGuestOrRegister" })
+                <div class="padding-top-20">
+                    <input type="button" class="btn btn-primary" onclick="location.href='@Url.RouteUrl("Checkout")'" value="@T("Account.Login.CheckoutAsGuest")" />
+                    <input type="button" class="btn btn-primary" onclick="location.href='@registerUrl'" value="@T("Account.Register")" />
+                </div>
+            }
+            else
+            {
+                <div class="padding-top-20">
+                    <input type="button" class="btn btn-primary " onclick="location.href='@registerUrl'" value="@T("Account.Register")" />
+                </div>
+                <div class="padding-top-20"></div>
+                <br />
+            }
         </div>
     </div>
 </div>

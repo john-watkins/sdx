@@ -4,16 +4,14 @@
     <span class="sep"></span>
     <i class="fa fa-search search-btn"></i>
     <div class="search-box">
-        @using (Html.BeginRouteForm("ProductSearch", FormMethod.Get, new { onsubmit = "return check_small_search_form()" }))
-        {
-            <div class="input-group">                
+        <form onsubmit="return check_small_search_form()" method="get" action="/search">
+            <div class="input-group">
                 <span class="input-group-btn">
                     <input type="text" id="small-searchterms" @(Model.AutoCompleteEnabled ? Html.Raw(" autocomplete=\"off\"") : null) class="form-control"
                            value="@T("Search.SearchBox.Tooltip")" name="q" onfocus="if(this.value=='@T("Search.SearchBox.Tooltip")')this.value=''" onblur="if(this.value=='') {this.value = '@T("Search.SearchBox.Tooltip")';}" />
                 </span>
             </div>
-
-        }
+        </form>
     </div>
 </li>
 

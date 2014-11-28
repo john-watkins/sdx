@@ -1,8 +1,47 @@
 ﻿
+body {
+    color: #3e4d5c;
+    direction: ltr;
+    font: 400 13px "Open Sans",Arial,sans-serif;
+}
+
+body.ecommerce {
+    background: none repeat scroll 0 0 #e5eaee;
+}
 
 .main-content-container {
     padding-top: 10px;
 }
+
+.product-page {    
+    margin-right: 10px;
+    padding: 10px;    
+}
+
+.product-main-image {
+    margin-bottom: 2px;
+}
+
+.product-page-content { 
+    padding: 20px 13px 0;    
+}
+
+.product-page .part-number{
+    float:right;
+    font-size:88%;
+    color: #8e9ca8;
+    text-transform:uppercase;
+}
+
+.product-item h3 {
+    font-size: 90%;
+    height: 55px;
+}
+
+img.centered {
+   display: block;
+   margin: auto auto;
+ }
 
 a {
     -webkit-transition: 300ms;
@@ -107,4 +146,61 @@ a {
 
 .error {
     color:#ff0000;
+}
+
+.ui-autocomplete {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    float: left;
+    display: none;
+    min-width: 160px;   
+    padding: 4px 0;
+    margin: 0 0 10px 25px;
+    list-style: none;
+    background-color: #ffffff;
+    border-color: #ccc;
+    border-color: rgba(0, 0, 0, 0.2);
+    border-style: solid;
+    border-width: 1px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+    *border-right-width: 2px;
+    *border-bottom-width: 2px;
+}
+
+.ui-menu-item > a.ui-corner-all {
+    display: block;
+    padding: 5px 15px;
+    clear: both;
+    font-weight: normal;
+    line-height: 18px;    
+    white-space: nowrap;
+    text-decoration: none;
+}
+
+    .ui-menu-item > a.ui-corner-all img {
+        padding-right:4px;
+    }
+
+.ui-state-hover, .ui-state-active {
+    color: #ffffff;
+    text-decoration: none;
+    background-color: #0088cc;
+    border-radius: 0px;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    background-image: none;
+}
+
+.ui-corner-all.ui-state-focus {
+    color:#64aed9;
 }

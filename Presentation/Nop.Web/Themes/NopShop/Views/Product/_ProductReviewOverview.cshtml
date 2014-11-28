@@ -43,7 +43,7 @@
         else
         {
             <div class="product-no-reviews">
-                <a href="@Url.RouteUrl("ProductReviews", new { productId = Model.ProductId })">@T("Reviews.Overview.First")</a>
+                <a href="javascript:void(0);" onclick="ProductTemplateController.addReviewClick();">@T("Reviews.Overview.First")</a>
             </div>
         }
     </div>

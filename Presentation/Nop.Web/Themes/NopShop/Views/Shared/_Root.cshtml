@@ -34,10 +34,8 @@
                         </ul>
                     </div>
                     <div class="col-md-8 col-sm-8 additional-nav">
-                        <ul class="list-unstyled list-inline pull-right">
-                            <li>
-                                @Html.Action("HeaderLinks", "Common")
-                            </li>
+                        <ul class="list-unstyled list-inline pull-right">                           
+                            @Html.Action("HeaderLinks", "Common")                           
                         </ul>
                     </div>
                 </div>
@@ -65,6 +63,37 @@
     </div>
     @Html.Widget("content_after")
     @Html.Action("EuCookieLaw", "Common")
+    <!-- BEGIN STEPS -->
+    <div class="steps-block steps-block-red">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 steps-block-col">
+                    <i class="fa fa-truck"></i>
+                    <div>
+                        <h2>Free shipping</h2>
+                        <em>Express delivery withing 3 days</em>
+                    </div>
+                    <span>&nbsp;</span>
+                </div>
+                <div class="col-md-4 steps-block-col">
+                    <i class="fa fa-gift"></i>
+                    <div>
+                        <h2>Daily Gifts</h2>
+                        <em>3 Gifts daily for lucky customers</em>
+                    </div>
+                    <span>&nbsp;</span>
+                </div>
+                <div class="col-md-4 steps-block-col">
+                    <i class="fa fa-phone"></i>
+                    <div>
+                        <h2>477 505 8877</h2>
+                        <em>24/7 customer care available</em>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END STEPS -->
     @Html.Action("Footer", "Common")
 </div>
 @Html.Widget("body_end_html_tag_before")
