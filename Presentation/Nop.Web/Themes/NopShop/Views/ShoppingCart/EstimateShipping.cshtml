@@ -41,20 +41,20 @@
                     <div class="inputs invisible-box">
                         @Html.LabelFor(model => model.CountryId, new { }, ":")
                         <span class="required">*</span>
-                        @Html.DropDownListFor(model => model.CountryId, Model.AvailableCountries, new { @class = "gray-input pull-right" })
+                        @Html.DropDownListFor(model => model.CountryId, Model.AvailableCountries, new { @class = "hidden" })
 
                     </div>
                     <div class="inputs invisible-box">
                         @Html.LabelFor(model => model.StateProvinceId, new { }, ":")
-                        @Html.DropDownListFor(model => model.StateProvinceId, Model.AvailableStates, new { @class = "gray-input pull-right" })
+                        @Html.DropDownListFor(model => model.StateProvinceId, Model.AvailableStates, new { @class = "hidden" })
                         <span id="estimate-shipping-loading-progress" style="display: none;" class="please-wait">@T("Common.Wait...")</span>
                     </div>
                     <div class="invisible-box">
                         @Html.LabelFor(model => model.ZipPostalCode, new { }, ":")
-                        @Html.TextBoxFor(model => model.ZipPostalCode, new { @class = "gray-input pull-right" })
+                        @Html.TextBoxFor(model => model.ZipPostalCode, new { @class = "gray-input pull-right" })                       
                     </div><br />
                     <div class="">
-                        <input type="submit" name="estimateshipping" value="@T("ShoppingCart.EstimateShipping.Button")" class="btn btn-primary get" />
+                        <input type="button" onclick="ShoppingCartController.getShippingRates();" name="estimateshipping" value="@T("ShoppingCart.EstimateShipping.Button")" class="btn btn-primary get" />
                     </div>
                 </div><br />
                 @if (Model.ShippingOptions.Count > 0)

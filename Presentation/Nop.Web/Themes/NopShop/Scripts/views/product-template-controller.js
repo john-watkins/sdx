@@ -9,14 +9,16 @@ var ProductTemplateController = function() {
     var _this = this;
     var handleInit = function () {
         $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-            var target = $(e.target).attr("href") // activated tab            
+            var ele = $(e.target);
+            var target = ele.attr("href") // activated tab            
             if (target == "#Reviews") {
                 var isLoaded = $("#reviews_placeholder").data("loaded") == "true";
                 if (!isLoaded) {
                     var productId = $(this).data("productid");
                     handleLoadReviews(productId);
-                }
+                }                
             }
+            NopTronic.scrollTo(ele, 60);
         });
         handleSubmitReview();
 

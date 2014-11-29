@@ -561,7 +561,7 @@ Bootstrap Wizard
   display: none;
 }
 .form-wizard .steps > li.active > a.step .number {
-  background-color: #45b6af;
+  background-color: #64aed9;
   color: #fff;
 }
 .form-wizard .steps > li.active > a.step .desc {

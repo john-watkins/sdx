@@ -5,12 +5,17 @@ body {
     font: 400 13px "Open Sans",Arial,sans-serif;
 }
 
+/* AJAX LOADING INDICATOR */
+.ajax-loading-block-window{position:fixed;top:40%;left:50%;width:128px;height:128px;overflow:hidden;z-index:1104;display:none;}
+.ajax-loading-block-window .loading-image{position:absolute;top:0;left:0;width:128px;height:128px;background-image:url('images/ajax_loader_large.gif');}
+.please-wait{background:url('images/ajax_loader_small.gif') no-repeat;padding-left:20px;}
+
 body.ecommerce {
     background: none repeat scroll 0 0 #e5eaee;
 }
 
 .main-content-container {
-    padding-top: 10px;
+    padding-top: 2px;
 }
 
 .product-page {    

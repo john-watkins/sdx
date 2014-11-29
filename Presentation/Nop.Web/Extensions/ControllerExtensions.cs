@@ -245,6 +245,8 @@ namespace Nop.Web.Extensions
                                             }
                                             else
                                             {
+                                                priceModel.NumOldPrice = oldPrice;
+                                                priceModel.NumPrice = finalPrice;
                                                 if (finalPriceBase != oldPriceBase && oldPriceBase != decimal.Zero)
                                                 {
                                                     priceModel.OldPrice = priceFormatter.FormatPrice(oldPrice);

@@ -52,6 +52,11 @@ namespace Nop.Web.Infrastructure
                             new { controller = "ShoppingCart", action = "Wishlist", customerGuid = UrlParameter.Optional },
                             new[] { "Nop.Web.Controllers" });
 
+            routes.MapLocalizedRoute("GetShippingOptionRatesJson",
+                            "GetShippingOptionRatesJson",
+                            new { controller = "ShoppingCart", action = "GetShippingOptionRatesJson"},
+                            new[] { "Nop.Web.Controllers" });
+
             //customer
             routes.MapLocalizedRoute("CustomerInfo",
                             "customer/info",

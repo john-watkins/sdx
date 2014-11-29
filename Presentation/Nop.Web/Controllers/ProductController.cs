@@ -449,7 +449,8 @@ namespace Nop.Web.Controllers
                             model.ProductPrice.OldPrice = _priceFormatter.FormatPrice(oldPrice);
 
                         model.ProductPrice.Price = _priceFormatter.FormatPrice(finalPriceWithoutDiscount);
-
+                        model.ProductPrice.NumOldPrice = oldPrice;
+                        model.ProductPrice.NumPrice = finalPriceWithDiscount;
                         if (finalPriceWithoutDiscountBase != finalPriceWithDiscountBase)
                             model.ProductPrice.PriceWithDiscount = _priceFormatter.FormatPrice(finalPriceWithDiscount);
 

@@ -5971,6 +5971,7 @@
     <Content Include="Themes\NopShop\Content\metronic\assets\global\scripts\metronic.js" />
     <Content Include="Themes\NopShop\preview.jpg" />
     <Content Include="Themes\NopShop\Scripts\contact.js" />
+    <Content Include="Themes\NopShop\Scripts\services\geoservices.js" />
     <Content Include="Themes\NopShop\Scripts\gmaps.js" />
     <Content Include="Themes\NopShop\Scripts\handlebars-v2.0.0.js" />
     <Content Include="Themes\NopShop\Scripts\html5shiv.js" />
@@ -5982,8 +5983,10 @@
     <Content Include="Themes\NopShop\Scripts\price-range.js" />
     <Content Include="Themes\NopShop\Scripts\services\product-service.js" />
     <Content Include="Themes\NopShop\Scripts\respond.min.js" />
+    <Content Include="Themes\NopShop\Scripts\services\shipping-service.js" />
     <Content Include="Themes\NopShop\Scripts\services\shoppingcart-service.js" />
     <Content Include="Themes\NopShop\Scripts\styleSheetToogle.js" />
+    <Content Include="Themes\NopShop\Scripts\views\form-wizard.js" />
     <Content Include="Themes\NopShop\Scripts\views\product-template-controller.js" />
     <Content Include="Themes\NopShop\Scripts\views\shoppingcart-controller.js" />
     <Content Include="Themes\NopShop\Views\preview.jpg" />
@@ -6321,7 +6324,6 @@
     <Content Include="Themes\NopShop\Views\Catalog\VendorAll.cshtml" />
     <Content Include="Themes\NopShop\Views\Catalog\_FilterPriceBox.cshtml" />
     <Content Include="Themes\NopShop\Views\Catalog\_FilterSpecsBox.cshtml" />
-    <Content Include="Themes\NopShop\Views\Catalog\_ProductBox.cshtml" />
     <Content Include="Themes\NopShop\Views\Checkout\BillingAddress.cshtml" />
     <Content Include="Themes\NopShop\Views\Checkout\CheckoutProgress.cshtml" />
     <Content Include="Themes\NopShop\Views\Checkout\Completed.cshtml" />
@@ -6466,7 +6468,9 @@
     <Content Include="Themes\NopShop\Views\Product\_DisplayQuantityInput.cshtml" />
     <Content Include="Themes\NopShop\Views\Product\_ReviewsJsonTemplate.cshtml" />
     <Content Include="Themes\NopShop\Views\Common\ShoppingCartLink.cshtml" />
-    <Content Include="Themes\NopShop\Views\ShoppingCart\NopTronicFlyoutShoppingCart.cshtml" />
+    <Content Include="Themes\NopShop\Views\ShoppingCart\NopTronicCart.cshtml" />
+    <Content Include="Themes\NopShop\Views\Shared\_CartCheckoutIncludes.cshtml" />
+    <Content Include="Themes\NopShop\Views\ShoppingCart\_CartProductTable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Plugins\bin\" />

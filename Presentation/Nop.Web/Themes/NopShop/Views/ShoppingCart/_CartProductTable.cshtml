@@ -1,0 +1,140 @@
+﻿@model ShoppingCartModel
+@using Nop.Core
+@using Nop.Core.Infrastructure
+@using Nop.Web.Models.ShoppingCart;
+@{
+    var webHelper = EngineContext.Current.Resolve<IWebHelper>();
+}
+
+<div class="table-wrapper-responsive">
+    <table summary="Shopping cart">
+        <tbody>
+            <tr>                
+                @if (Model.ShowSku)
+                {
+                    <th class="goods-page-ref-no">
+                        @T("ShoppingCart.SKU")
+                    </th>
+                }
+                @if (Model.ShowProductImages)
+                {
+                    <th class="goods-page-image">Image</th>
+                }
+                <th class="goods-page-description">
+                    @T("ShoppingCart.Product(s)")
+                </th>               
+                <th class="goods-page-quantity">
+                    @T("ShoppingCart.Quantity")
+                </th>
+                <th class="goods-page-price">
+                    @T("ShoppingCart.UnitPrice")
+                </th>
+                <th class="goods-page-total" colspan="2">
+                    @T("ShoppingCart.ItemTotal")
+                </th>                
+            </tr>
+            @foreach (var item in Model.Items)
+            {
+                <tr class="cart-item-row">                    
+                    @if (Model.ShowSku)
+                    {
+                        <td class="goods-page-ref-no">
+                            <span class="td-title">@T("ShoppingCart.SKU"):</span>
+                            @item.Sku
+                        </td>
+                    }
+                    @if (Model.ShowProductImages)
+                    {
+                        <td class="goods-page-image">
+                            <img alt="@item.Picture.AlternateText" src="@item.Picture.ImageUrl" title="@item.Picture.Title" />
+                        </td>
+                    }
+                    <td class="goods-page-description">
+                        <a href="@Url.RouteUrl("Product", new { SeName = item.ProductSeName })" class="product-name">@item.ProductName</a>
+                        @if (!String.IsNullOrEmpty(item.AttributeInfo))
+                        {
+                            <div class="attributes">
+                                @Html.Raw(item.AttributeInfo)
+                            </div>
+                        }
+                        @if (!String.IsNullOrEmpty(item.RecurringInfo))
+                        {
+                            <div class="recurring-info">
+                                @Html.Raw(item.RecurringInfo)
+                            </div>
+                        }
+                        @if (Model.IsEditable && item.AllowItemEditing)
+                        {
+                            var editCartItemUrl = Url.RouteUrl("Product", new { SeName = item.ProductSeName });
+                            editCartItemUrl = webHelper.ModifyQueryString(editCartItemUrl, "updatecartitemid=" + item.Id, null);
+                            <div class="edit-item">
+                                <a href="@editCartItemUrl">@T("Common.Edit")</a>
+                            </div>
+                        }
+                        @if (item.Warnings.Count > 0)
+                        {
+                            <div class="message-error">
+                                <ul>
+                                    @for (int i = 0; i < item.Warnings.Count; i++)
+                                    {
+                                        <li>@item.Warnings[i]</li>
+                                    }
+                                </ul>
+                            </div>
+                        }
+                    </td>                    
+                    <td class="goods-page-quantity">                        
+                        @if (Model.IsEditable)
+                        {
+                            if (item.AllowedQuantities.Count > 0)
+                            {
+                                <select name="itemquantity@(item.Id)" class="qty-dropdown">
+                                    @foreach (var qty in item.AllowedQuantities)
+                                    {
+                                        <option selected="@qty.Selected" value="@qty.Value">@qty.Value</option>
+                                    }
+                                </select>
+                            }
+                            else
+                            {                                
+                                <div class="product-quantity">
+                                    <input name="itemquantity@(item.Id)" id="itemquantity@(item.Id)" type="text" value="@(item.Quantity)" readonly class="qty-input form-control input-sm">
+                                </div>
+                            }
+
+                        }
+                        else
+                        {
+                            <span>@item.Quantity</span>
+                        }
+                    </td>
+                    <td class="goods-page-price">
+                        <strong>
+                            <span>@item.UnitPrice</span>
+                        </strong>
+                    </td>
+                    <td class="goods-page-total">  
+                        <strong>
+                            <span>
+                                @item.SubTotal
+                                @if (!String.IsNullOrEmpty(item.Discount))
+                                {
+                                    <span class="discount">
+                                        @T("ShoppingCart.ItemYouSave"): @item.Discount
+                                    </span>
+                                }
+                            </span>
+                        </strong>                      
+                    </td>
+                    <td class="del-goods-col">
+                        @if (Model.IsEditable)
+                        {
+                            <a href="#" class="del-goods"></a>
+                            @*<input type="checkbox" name="removefromcart" value="@(item.Id)" />*@
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -146,7 +146,8 @@ namespace Nop.Web.Models.Catalog
             public string CurrencyCode { get; set; }
 
             public string OldPrice { get; set; }
-
+            public decimal NumOldPrice { get; set; }
+            public decimal NumPrice { get; set; }
             public string Price { get; set; }
             public string PriceWithDiscount { get; set; }
 

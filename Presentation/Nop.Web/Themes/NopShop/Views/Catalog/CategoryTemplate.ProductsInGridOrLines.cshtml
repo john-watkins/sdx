@@ -162,7 +162,9 @@
                             <div class="col-md-12">
                                 <div class="offer offer-default">
                                     <div class="row product-list">
-                                        @Html.Partial("_ProductBox", product)
+                                        <div class="col-md-4 col-sm-6 col-xs-12">
+                                            @Html.Partial("_ProductBox", product)
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -181,7 +183,9 @@
                             <div class="col-md-12">
                                 <div class="offer offer-default">
                                     <div class="row product-list">
-                                        @Html.Partial("_ProductBox", product)
+                                        <div class="col-md-4 col-sm-6 col-xs-12">
+                                            @Html.Partial("_ProductBox", product)
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -205,68 +209,68 @@
 @Html.Widget("categorydetails_after_featured_products")
 @*featured products*@
 @*@if (Model.FeaturedProducts.Count > 0)
-{
-    var best_i = 0;
-    <div class="recommended_items">
-        recommended_items
-        <h2 class="title text-center">@T("Products.FeaturedProducts")</h2>
+    {
+        var best_i = 0;
+        <div class="recommended_items">
+            recommended_items
+            <h2 class="title text-center">@T("Products.FeaturedProducts")</h2>
 
-        <div id="recommended-item-carousel-2" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-                @foreach (var item in Model.FeaturedProducts)
-                {
-                    if (best_i % 3 == 0)
+            <div id="recommended-item-carousel-2" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    @foreach (var item in Model.FeaturedProducts)
                     {
-                        if (best_i == 0)
+                        if (best_i % 3 == 0)
                         {
-                            @:<div class="item active">
-                                @:<div class="row">
+                            if (best_i == 0)
+                            {
+                                @:<div class="item active">
+                                    @:<div class="row">
+                            }
+                            else
+                            {
+                                @:<div class="item">
+                                    @:<div class="row">
+                            }
+
+
+
+
                         }
-                        else
-                        {
-                            @:<div class="item">
-                                @:<div class="row">
-                        }
+                        <div class="col-lg-4">
+                            <div class="offer offer-default silde-show-offer pull-text-center">
+                                @Html.Partial("_ProductBox", item)
+                            </div>
 
-
-
-
-                    }
-                    <div class="col-lg-4">
-                        <div class="offer offer-default silde-show-offer pull-text-center">
-                            @Html.Partial("_ProductBox", item)
                         </div>
 
+
+                        if (best_i % 3 == 2)
+                        {
+                            @:
+                        </div>
+                        @:
                     </div>
-
-
-                    if (best_i % 3 == 2)
+                        }
+                        best_i++;
+                    }
+                    @if (best_i % 3 != 0)
                     {
                         @:
                     </div>
-                    @:
-                </div>
+                        @:
+                    </div>
                     }
-                    best_i++;
-                }
-                @if (best_i % 3 != 0)
-                {
-                    @:
-                </div>
-                    @:
-                </div>
-                }
 
+                </div>
+                <a class="left recommended-item-control" href="#recommended-item-carousel-2" data-slide="prev">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                <a class="right recommended-item-control" href="#recommended-item-carousel-2" data-slide="next">
+                    <i class="fa fa-angle-right"></i>
+                </a>
             </div>
-            <a class="left recommended-item-control" href="#recommended-item-carousel-2" data-slide="prev">
-                <i class="fa fa-angle-left"></i>
-            </a>
-            <a class="right recommended-item-control" href="#recommended-item-carousel-2" data-slide="next">
-                <i class="fa fa-angle-right"></i>
-            </a>
         </div>
-    </div>    
-}*@
+    }*@
 @Html.Widget("categorydetails_before_featured_products")
 
 <script type="text/javascript">

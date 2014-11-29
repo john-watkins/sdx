@@ -1958,24 +1958,45 @@ namespace Nop.Web.Controllers
             return View(model);
         }
         
+
         [ValidateInput(false)]
         [HttpPost, ActionName("Cart")]
         [FormValueRequired("estimateshipping")]
         public ActionResult GetEstimateShipping(EstimateShippingModel shippingModel, FormCollection form)
         {
-            var cart = _workContext.CurrentCustomer.ShoppingCartItems
-                .Where(sci => sci.ShoppingCartType == ShoppingCartType.ShoppingCart)
-                .LimitPerStore(_storeContext.CurrentStore.Id)
-                .ToList();
-            
             //parse and save checkout attributes
+            var cart = _workContext.CurrentCustomer.ShoppingCartItems
+                    .Where(sci => sci.ShoppingCartType == ShoppingCartType.ShoppingCart)
+                    .LimitPerStore(_storeContext.CurrentStore.Id)
+                    .ToList();
+
             ParseAndSaveCheckoutAttributes(cart, form);
-            
+            var model = GetEstimateShippingModel(shippingModel);
+            return View(model);
+        }
+
+        [HttpPost]
+        public JsonResult GetShippingOptionRatesJson(EstimateShippingModel shippingModel)
+        {            
+            var model = GetEstimateShippingModel(shippingModel);
+            return Json(new
+            {
+                shippingEstimate = model.EstimateShipping
+            });
+        }
+
+        private ShoppingCartModel GetEstimateShippingModel(EstimateShippingModel shippingModel)
+        {
+            var cart = _workContext.CurrentCustomer.ShoppingCartItems
+                    .Where(sci => sci.ShoppingCartType == ShoppingCartType.ShoppingCart)
+                    .LimitPerStore(_storeContext.CurrentStore.Id)
+                    .ToList();            
+
             var model = new ShoppingCartModel();
             model.EstimateShipping.CountryId = shippingModel.CountryId;
             model.EstimateShipping.StateProvinceId = shippingModel.StateProvinceId;
             model.EstimateShipping.ZipPostalCode = shippingModel.ZipPostalCode;
-            PrepareShoppingCartModel(model, cart,setEstimateShippingDefaultAddress: false);
+            PrepareShoppingCartModel(model, cart, setEstimateShippingDefaultAddress: false);
 
             if (cart.RequiresShipping())
             {
@@ -1983,7 +2004,7 @@ namespace Nop.Web.Controllers
                 {
                     CountryId = shippingModel.CountryId,
                     Country = shippingModel.CountryId.HasValue ? _countryService.GetCountryById(shippingModel.CountryId.Value) : null,
-                    StateProvinceId  = shippingModel.StateProvinceId,
+                    StateProvinceId = shippingModel.StateProvinceId,
                     StateProvince = shippingModel.StateProvinceId.HasValue ? _stateProvinceService.GetStateProvinceById(shippingModel.StateProvinceId.Value) : null,
                     ZipPostalCode = shippingModel.ZipPostalCode,
                 };
@@ -2031,12 +2052,11 @@ namespace Nop.Web.Controllers
                     }
                     else
                     {
-                       model.EstimateShipping.Warnings.Add(_localizationService.GetResource("Checkout.ShippingIsNotAllowed"));
+                        model.EstimateShipping.Warnings.Add(_localizationService.GetResource("Checkout.ShippingIsNotAllowed"));
                     }
                 }
             }
-
-            return View(model);
+            return model;
         }
 
         [ChildActionOnly]

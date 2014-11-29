@@ -8,22 +8,7 @@
         {
             var product = Model[i];
             <div>
-                <div class="product-item">
-                    <div class="pi-img-wrapper">
-                        @if (!String.IsNullOrEmpty(product.DefaultPictureModel.ImageUrl))
-                        {
-                            <img class="img-responsive centered" alt="@product.DefaultPictureModel.AlternateText" src="@product.DefaultPictureModel.ImageUrl" title="@product.DefaultPictureModel.Title" />
-                        }
-                        <div>
-                            <a href="@product.DefaultPictureModel.FullSizeImageUrl" class="btn btn-default fancybox-button">Zoom</a>
-                            <a href="@Url.RouteUrl("Product", new { SeName = product.SeName })" class="btn btn-default fancybox-fast-view" title="@product.DefaultPictureModel.Title">View</a>
-                        </div>
-                    </div>
-                    <h3><a href="shop-item.html">@product.Name</a></h3>
-                    <div class="pi-price">@product.ProductPrice.Price</div>                    
-                    <a href="#" class="btn btn-default add2cart">Add to cart</a>                   
-                    <div class="sticker sticker-sale"></div>
-                </div>
+                @Html.Partial("_ProductBox", product)
             </div>
         }
     </div>    
